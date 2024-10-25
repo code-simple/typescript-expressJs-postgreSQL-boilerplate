@@ -13,6 +13,6 @@ const defaultRoutes = [
     },
 ];
 defaultRoutes.forEach((route) => {
-    router;
+    router.use(route.path, route.route);
 });
 exports.default = router;

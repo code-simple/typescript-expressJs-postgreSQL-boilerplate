@@ -13,13 +13,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = __importDefault(require("../config/database"));
-const checkDatabaseConnection = () => __awaiter(void 0, void 0, void 0, function* () {
+const checkDatabaseConnection = (server, callback) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield database_1.default.authenticate(); // Attempt to connect to the database
-        console.log("Database connection has been established successfully.");
+        callback(); // Execute the callback if successful
     }
     catch (error) {
         console.error("Unable to connect to the database:", error);
+        server.close(() => {
+            console.log("Server closed due to database connection error");
+            process.exit(1); // Exit the process with an error code
+        });
     }
 });
 exports.default = checkDatabaseConnection;

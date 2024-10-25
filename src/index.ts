@@ -67,11 +67,14 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 app.use(globalErrorHandler);
 const PORT = process.env.APP_PORT || 4000;
 
-// Call the function to check the DB connection
-checkDatabaseConnection();
-
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log("Server up and running", PORT);
+});
+// Call the function to check the DB connection
+checkDatabaseConnection(server, () => {
+  console.log(
+    "Database connection established successfully. Server is ready to handle requests."
+  );
 });
 
 export default app;

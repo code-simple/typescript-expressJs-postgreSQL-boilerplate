@@ -7,7 +7,7 @@ const bcrypt_1 = __importDefault(require("bcrypt"));
 const sequelize_1 = require("sequelize");
 const database_1 = __importDefault(require("../config/database"));
 // Define the User model using the functional approach
-const User = database_1.default.define("User", {
+const User = database_1.default.define("user", {
     id: {
         allowNull: false,
         autoIncrement: true,
@@ -62,7 +62,9 @@ const User = database_1.default.define("User", {
         type: sequelize_1.DataTypes.DATE,
     },
 }, {
+    modelName: "user",
     paranoid: true, // Enables soft deletion with deletedAt
+    freezeTableName: true,
     // Use the model name as the table name without pluralization
     timestamps: true, // Automatically manage createdAt and updatedAt
 });

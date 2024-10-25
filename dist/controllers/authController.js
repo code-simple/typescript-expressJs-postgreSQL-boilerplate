@@ -14,29 +14,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.signup = void 0;
 const AppError_1 = require("../utils/AppError");
-const tokenService_1 = require("../services/tokenService");
+const services_1 = require("../services/");
 const User_1 = __importDefault(require("../models/User"));
 const signup = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const body = req.body;
     if (!["1", "2"].includes(body.userType)) {
         return next(new AppError_1.AppError("Invalid user type", 400));
     }
-    try {
-        const newUser = yield User_1.default.create(req.body);
-        if (!newUser) {
-            return next(new AppError_1.AppError("Failed to create the user", 400));
-        }
-        const result = newUser.toJSON();
-        delete result.password;
-        delete result.deletedAt;
-        result.token = (0, tokenService_1.generateToken)({ id: result.id });
-        return res.status(201).json({
-            status: "success",
-            data: result,
-        });
+    const newUser = yield User_1.default.create(req.body);
+    if (!newUser) {
+        return next(new AppError_1.AppError("Failed to create the user", 400));
     }
-    catch (error) {
-        return next(new AppError_1.AppError("Signup failed", 500));
-    }
+    const result = newUser.toJSON();
+    delete result.password;
+    delete result.deletedAt;
+    result.token = (0, services_1.generateToken)({ id: result.id });
+    return res.status(201).json({
+        status: "success",
+        data: result,
+    });
 });
 exports.signup = signup;
