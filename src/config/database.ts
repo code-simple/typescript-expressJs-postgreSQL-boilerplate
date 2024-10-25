@@ -1,19 +1,17 @@
+import path from "path";
 import { Sequelize } from "sequelize-typescript";
 import dotenv from "dotenv";
-import config from "./config";
-import path from "path";
 
 dotenv.config();
 
-const env = process.env.NODE_ENV || "development";
-
-if (!config[env]) {
-  throw new Error(`Missing configuration for environment: ${env}`);
-}
-
+// Create the Sequelize instance using `sequelize-typescript`
 const sequelize = new Sequelize({
-  ...config[env],
-  models: [path.resolve(__dirname, "../models")], // Automatically loads models from the models folder
+  database: process.env.DB_NAME,
+  dialect: "postgres", // or any other dialect you're using
+  username: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  host: process.env.DB_HOST,
+  models: [path.resolve(__dirname, "./src/models")],
 });
 
 export default sequelize;

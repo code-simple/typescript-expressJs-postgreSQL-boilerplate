@@ -1,7 +1,7 @@
-import { Request, Response, NextFunction } from "express";
-import { User, UserAttributes } from "../models/user"; // Adjust import to your User model
+import { Request, Response, NextFunction } from "express"; // Adjust import to your User model
 import { AppError } from "../utils/AppError";
 import { generateToken } from "../services/tokenService";
+import User from "../models/User";
 
 export const signup = async (
   req: Request,

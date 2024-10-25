@@ -1,11 +1,31 @@
 import bcrypt from "bcrypt";
 import { DataTypes, Sequelize, Model, Optional } from "sequelize";
 import sequelize from "../config/database";
-import { UserAttributes } from "../interfaces/user";
-import { UserCreationAttributes } from "../types/user";
 
+// Interface defining the attributes of the User
+export interface UserAttributes {
+  id: number;
+  userType: "0" | "1" | "2"; // 0: admin, 1: user, 2: other
+  firstName: string;
+  lastName: string;
+  email: string;
+  password?: string;
+  confirmPassword?: string; // Virtual attribute, not stored in DB
+  createdAt?: Date;
+  updatedAt?: Date;
+  deletedAt?: Date | null;
+  token?: string | null;
+}
+
+// Define UserCreationAttributes for optional fields during creation
+export type UserCreationAttributes = Optional<
+  UserAttributes,
+  "id" | "createdAt" | "updatedAt" | "deletedAt"
+>;
+
+// Define the User model using the functional approach
 const User = sequelize.define<Model<UserAttributes, UserCreationAttributes>>(
-  "user",
+  "User",
   {
     id: {
       allowNull: false,
@@ -14,7 +34,7 @@ const User = sequelize.define<Model<UserAttributes, UserCreationAttributes>>(
       type: DataTypes.INTEGER,
     },
     userType: {
-      type: DataTypes.ENUM("0", "1", "2"), // 0:admin, 1:user, 2:other
+      type: DataTypes.ENUM("0", "1", "2"), // 0: admin, 1: user, 2: other
       allowNull: false,
     },
     firstName: {
@@ -36,10 +56,11 @@ const User = sequelize.define<Model<UserAttributes, UserCreationAttributes>>(
     },
     confirmPassword: {
       type: DataTypes.VIRTUAL, // Virtual field, not stored in the database
-      set(val: string) {
+      set(this: Model<UserAttributes, UserCreationAttributes>, val: string) {
+        // Use bcrypt to hash password if it matches confirmation
         if (val === this.getDataValue("password")) {
-          const hashPassword = bcrypt.hashSync(val, 10);
-          this.setDataValue("password", hashPassword);
+          const hashedPassword = bcrypt.hashSync(val, 10);
+          this.setDataValue("password", hashedPassword);
         } else {
           throw new Error("Passwords do not match");
         }
@@ -48,10 +69,12 @@ const User = sequelize.define<Model<UserAttributes, UserCreationAttributes>>(
     createdAt: {
       allowNull: false,
       type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
     },
     updatedAt: {
       allowNull: false,
       type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
     },
     deletedAt: {
       type: DataTypes.DATE,
@@ -59,9 +82,9 @@ const User = sequelize.define<Model<UserAttributes, UserCreationAttributes>>(
   },
   {
     paranoid: true, // Enables soft deletion with deletedAt
-    freezeTableName: true, // Use the model name as the table name without pluralization
+    // Use the model name as the table name without pluralization
     timestamps: true, // Automatically manage createdAt and updatedAt
   }
 );
 
-export { User, UserAttributes };
+export default User;

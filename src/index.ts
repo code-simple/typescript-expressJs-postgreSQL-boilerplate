@@ -7,8 +7,14 @@ import { ReasonPhrases, StatusCodes } from "http-status-codes";
 // import config from "./config/config";
 // import morgan from "./config/morgan";
 import { authLimiter } from "./middlewares/rateLimiter";
-// import routes from './routes/v1';
+import router from "./routes/v1";
 import { AppError } from "./utils/AppError";
+import globalErrorHandler from "./controllers/errorController";
+import dotenv from "dotenv";
+import sequelize from "./config/database";
+import checkDatabaseConnection from "./services/databaseService";
+
+dotenv.config();
 
 const app = express();
 
@@ -43,11 +49,11 @@ app.use(compression());
 
 // Limit repeated failed requests to auth endpoints
 if (process.env.NODE_ENV === "production") {
-  app.use("/v1/auth", authLimiter);
+  app.use("/api/v1/auth", authLimiter);
 }
 
 // V1 API routes
-// app.use("/dev/v1", routes);
+app.use("/api/v1", router);
 
 // Send back a 404 error for any unknown API request
 app.use((req: Request, res: Response, next: NextFunction) => {
@@ -58,6 +64,14 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 // app.use(errorConverter);
 
 // Handle error
-// app.use(errorHandler);
+app.use(globalErrorHandler);
+const PORT = process.env.APP_PORT || 4000;
+
+// Call the function to check the DB connection
+checkDatabaseConnection();
+
+app.listen(PORT, () => {
+  console.log("Server up and running", PORT);
+});
 
 export default app;

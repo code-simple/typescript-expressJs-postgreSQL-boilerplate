@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import { User } from "../models/user"; // Adjust import to your User model
+import User from "../models/User"; // Adjust import to your User model
 import { AppError } from "../utils/AppError";
 
 export const restrictTo = (...allowedUserTypes: string[]) => {
