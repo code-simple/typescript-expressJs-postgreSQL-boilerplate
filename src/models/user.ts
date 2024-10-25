@@ -1,0 +1,67 @@
+import bcrypt from "bcrypt";
+import { DataTypes, Sequelize, Model, Optional } from "sequelize";
+import sequelize from "../config/database";
+import { UserAttributes } from "../interfaces/user";
+import { UserCreationAttributes } from "../types/user";
+
+const User = sequelize.define<Model<UserAttributes, UserCreationAttributes>>(
+  "user",
+  {
+    id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER,
+    },
+    userType: {
+      type: DataTypes.ENUM("0", "1", "2"), // 0:admin, 1:user, 2:other
+      allowNull: false,
+    },
+    firstName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    email: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    confirmPassword: {
+      type: DataTypes.VIRTUAL, // Virtual field, not stored in the database
+      set(val: string) {
+        if (val === this.getDataValue("password")) {
+          const hashPassword = bcrypt.hashSync(val, 10);
+          this.setDataValue("password", hashPassword);
+        } else {
+          throw new Error("Passwords do not match");
+        }
+      },
+    },
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+    },
+    deletedAt: {
+      type: DataTypes.DATE,
+    },
+  },
+  {
+    paranoid: true, // Enables soft deletion with deletedAt
+    freezeTableName: true, // Use the model name as the table name without pluralization
+    timestamps: true, // Automatically manage createdAt and updatedAt
+  }
+);
+
+export { User, UserAttributes };
