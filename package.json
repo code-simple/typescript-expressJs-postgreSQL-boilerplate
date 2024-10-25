@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "set NODE_ENV=development&& nodemon --exec ts-node src/index.ts",
-    "migrate": "npx sequelize-cli db:migrate",
+    "migrate": "npx sequelize db:migrate",
     "migrate:undo": "npx sequelize-cli db:migrate:undo",
     "migrate:undo:all": "npx sequelize-cli db:migrate:undo:all",
     "seed:all": "npx sequelize-cli db:seed:all",
@@ -42,6 +42,7 @@
     "nodemon": "^3.1.7",
     "sequelize-cli": "^6.6.2",
     "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.6.3"
   }
 }
