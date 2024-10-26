@@ -20,7 +20,7 @@ export interface UserAttributes {
 
 // Define the User model using the functional approach
 const User = sequelize.define<Model<UserAttributes, UserCreationAttributes>>(
-  "user",
+  "User",
   {
     id: {
       allowNull: false,
@@ -76,7 +76,7 @@ const User = sequelize.define<Model<UserAttributes, UserCreationAttributes>>(
     },
   },
   {
-    modelName: "user",
+    modelName: "User",
     paranoid: true, // Enables soft deletion with deletedAt
     freezeTableName: true,
     // Use the model name as the table name without pluralization

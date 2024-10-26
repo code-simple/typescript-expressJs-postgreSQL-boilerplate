@@ -1,17 +1,15 @@
-import path from "path";
-import { Sequelize } from "sequelize-typescript";
+import { Sequelize } from "sequelize";
 import dotenv from "dotenv";
 
 dotenv.config();
 
-// Create the Sequelize instance using `sequelize-typescript`
+// Initialize Sequelize using the standard Sequelize package
 const sequelize = new Sequelize({
   database: process.env.DB_NAME,
-  dialect: "postgres", // or any other dialect you're using
+  dialect: "postgres",
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   host: process.env.DB_HOST,
-  models: [path.resolve(__dirname, "./src/models")],
 });
 
 export default sequelize;

@@ -11,3 +11,8 @@ export const getUserById = async (req: Request, res: Response) => {
   const user = await userService.getUserById(req.params.id);
   sendSuccessResponse(res, user);
 };
+
+export const removeUser = async (req: Request, res: Response) => {
+  const user = await userService.removeUser(req.params.id);
+  sendSuccessResponse(res, user);
+};

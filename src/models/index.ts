@@ -23,6 +23,8 @@ fs.readdirSync(__dirname)
     }
   });
 // Add all loaded models to Sequelize
-sequelize.addModels(models);
+models.forEach((model) => {
+  sequelize.models[model.name] = model;
+});
 
 export default sequelize; // Default export of the configured Sequelize instance
