@@ -1,6 +1,7 @@
 import httpStatus, { ReasonPhrases } from "http-status-codes";
 import User from "../models/User";
 import { AppError } from "../utils/AppError";
+import { Request } from "express";
 
 export async function getUserById(id: string) {
   const user = await User.findByPk(id, {

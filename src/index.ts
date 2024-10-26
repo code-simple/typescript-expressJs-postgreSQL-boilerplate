@@ -11,13 +11,17 @@ import router from "./routes/v1";
 import { AppError } from "./utils/AppError";
 import globalErrorHandler from "./controllers/errorController";
 import dotenv from "dotenv";
-import sequelize from "./config/database";
+import { errorHandler, successHandler } from "./config/morgan";
 import checkDatabaseConnection from "./services/databaseService";
 
 dotenv.config();
 
 const app = express();
 
+if (process.env.NODE_ENV !== "test") {
+  app.use(successHandler);
+  app.use(errorHandler);
+}
 // if (config.env !== "test") {
 //   app.use(morgan.successHandler);
 //   app.use(morgan.errorHandler);
@@ -65,7 +69,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 // Handle error
 app.use(globalErrorHandler);
-const PORT = process.env.APP_PORT || 4000;
+const PORT = process.env.APP_PORT;
 
 const server = app.listen(PORT, () => {
   console.log("Server up and running", PORT);
