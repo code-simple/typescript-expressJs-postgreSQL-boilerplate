@@ -24,10 +24,6 @@ if (process.env.NODE_ENV !== "test") {
   app.use(successHandler);
   app.use(errorHandler);
 }
-// if (config.env !== "test") {
-//   app.use(morgan.successHandler);
-//   app.use(morgan.errorHandler);
-// }
 
 // Enable CORS
 app.use(cors());

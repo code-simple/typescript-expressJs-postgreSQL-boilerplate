@@ -5,7 +5,7 @@ import catchAsync from "../utils/catchAsync";
 
 // Define Joi schema for user validation
 const userSchema = Joi.object({
-  userType: Joi.string()
+  role: Joi.string()
     .valid("0", "1", "2")
     .required()
     .messages({ "any.only": "User type must be 0, 1, or 2" }),

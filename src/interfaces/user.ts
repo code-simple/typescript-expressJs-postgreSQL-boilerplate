@@ -1,6 +1,6 @@
 export interface UserAttributes {
   id: number;
-  userType: "0" | "1" | "2";
+  role: "0" | "1" | "2";
   firstName: string;
   lastName: string;
   email: string;

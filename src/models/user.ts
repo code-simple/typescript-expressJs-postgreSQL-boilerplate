@@ -6,7 +6,7 @@ import { UserCreationAttributes } from "../types/user";
 // Interface defining the attributes of the User
 export interface UserAttributes {
   id: number;
-  userType: "0" | "1" | "2"; // 0: admin, 1: user, 2: other
+  role: "0" | "1" | "2"; // 0: admin, 1: user, 2: other
   firstName: string;
   lastName: string;
   email: string;
@@ -28,7 +28,7 @@ const User = sequelize.define<Model<UserAttributes, UserCreationAttributes>>(
       primaryKey: true,
       type: DataTypes.INTEGER,
     },
-    userType: {
+    role: {
       type: DataTypes.ENUM("0", "1", "2"), // 0: admin, 1: user, 2: other
       allowNull: false,
     },

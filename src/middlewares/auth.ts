@@ -33,7 +33,7 @@ const verifyCallback =
       const hasRequiredRights = requiredRights.every((requiredRight) =>
         userRights.includes(requiredRight)
       );
-      if (!hasRequiredRights && req.params.userId !== user.id) {
+      if (!hasRequiredRights) {
         return reject(
           new AppError(messages.PLEASE_AUTHENTICATE, httpStatus.FORBIDDEN)
         );

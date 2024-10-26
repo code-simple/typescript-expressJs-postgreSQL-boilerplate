@@ -24,7 +24,7 @@ export async function login(req: Request) {
 export async function signup(req: Request) {
   const body = req.body;
 
-  if (!["1", "2"].includes(body.userType)) {
+  if (!["1", "2"].includes(body.role)) {
     throw new AppError("Invalid user type", 400);
   }
 
