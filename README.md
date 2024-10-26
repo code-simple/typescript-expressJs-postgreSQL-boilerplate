@@ -22,3 +22,12 @@ This project is a boilerplate setup for building a RESTful API using TypeScript,
    pnpm install
    pnpm migrate
    ```
+
+## PM2
+
+Make start.sh executable before using pm2
+
+```bash
+chmod +x start.sh
+pm2 start ecosystem.config.json
+```

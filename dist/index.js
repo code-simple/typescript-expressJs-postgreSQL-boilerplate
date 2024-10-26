@@ -16,9 +16,14 @@ const v1_1 = __importDefault(require("./routes/v1"));
 const AppError_1 = require("./utils/AppError");
 const errorController_1 = __importDefault(require("./controllers/errorController"));
 const dotenv_1 = __importDefault(require("dotenv"));
-const services_1 = require("./services/");
+const morgan_1 = require("./config/morgan");
+const databaseService_1 = __importDefault(require("./services/databaseService"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
+if (process.env.NODE_ENV !== "test") {
+    app.use(morgan_1.successHandler);
+    app.use(morgan_1.errorHandler);
+}
 // if (config.env !== "test") {
 //   app.use(morgan.successHandler);
 //   app.use(morgan.errorHandler);
@@ -56,9 +61,10 @@ app.use((req, res, next) => {
 app.use(errorController_1.default);
 const PORT = process.env.APP_PORT;
 const server = app.listen(PORT, () => {
-    console.log(`Server up and running on port ${PORT}`);
+    console.log("Server up and running", PORT);
 });
-(0, services_1.checkDatabaseConnection)(server, () => {
-    console.log("Database connection established successfully.");
+// Call the function to check the DB connection
+(0, databaseService_1.default)(server, () => {
+    console.log("Database connection established successfully. Server is ready to handle requests.");
 });
 exports.default = app;

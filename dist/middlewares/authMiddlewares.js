@@ -40,7 +40,7 @@ const authentication = (req, res, next) => __awaiter(void 0, void 0, void 0, fun
         if (!freshUser) {
             return next(new AppError_1.AppError("User no longer exists", 400));
         }
-        req.user = freshUser;
+        req.user = freshUser.dataValues;
         return next();
     }
     catch (error) {

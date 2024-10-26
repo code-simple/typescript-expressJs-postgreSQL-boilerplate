@@ -1,4 +1,27 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,30 +31,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.signup = void 0;
-const AppError_1 = require("../utils/AppError");
-const services_1 = require("../services/");
-const User_1 = __importDefault(require("../models/User"));
-const signup = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const body = req.body;
-    if (!["1", "2"].includes(body.userType)) {
-        return next(new AppError_1.AppError("Invalid user type", 400));
-    }
-    const newUser = yield User_1.default.create(req.body);
-    if (!newUser) {
-        return next(new AppError_1.AppError("Failed to create the user", 400));
-    }
-    const result = newUser.toJSON();
-    delete result.password;
-    delete result.deletedAt;
-    result.token = (0, services_1.generateToken)({ id: result.id });
-    return res.status(201).json({
-        status: "success",
-        data: result,
-    });
+exports.login = exports.signup = void 0;
+const tokenService_1 = require("../services/tokenService");
+const responses_1 = require("../utils/responses");
+const authService = __importStar(require("../services/authService"));
+const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield authService.signup(req);
+    (0, responses_1.sendSuccessResponse)(res, result);
 });
 exports.signup = signup;
+const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield authService.login(req);
+    const token = (0, tokenService_1.generateToken)({ id: result.dataValues.id });
+    (0, responses_1.sendSuccessResponse)(res, Object.assign(Object.assign({}, result.dataValues), { token }));
+});
+exports.login = login;
