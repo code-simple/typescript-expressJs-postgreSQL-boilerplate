@@ -31,3 +31,30 @@ export const signup = async (
     data: result,
   });
 };
+
+export const login = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return new AppError("Please provide email and password", 400);
+  }
+
+  const result = await User.findOne({
+    where: { email },
+  });
+
+  if (!result) {
+    return next(new AppError("Incorrect Email or Password", 400));
+  }
+
+  const token = generateToken({ id: result.dataValues.id });
+
+  return res.status(200).json({
+    status: "success",
+    data: { ...result.dataValues, token },
+  });
+};

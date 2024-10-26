@@ -1,5 +1,24 @@
-# TYPESCRIPT EXPRESS POSTGRESQL BOILERPLATE
+# TypeScript Express PostgreSQL Backend Boilerplate
 
-TODO :
+This project is a boilerplate setup for building a RESTful API using TypeScript, Express.js, and PostgreSQL, utilizing Sequelize as the ORM. It includes essential features such as JWT-based authentication, request validation, rate limiting for specific routes, and project structuring best practices.
 
-- Validations
+## Table of Contents
+
+- [Project Structure](#project-structure)
+- [Setup and Installation](#setup-and-installation)
+- [Environment Variables](#environment-variables)
+- [Available Scripts](#available-scripts)
+- [API Documentation](#api-documentation)
+- [Folder Structure Breakdown](#folder-structure-breakdown)
+
+## Project Structure
+
+## Setup and Installation
+
+1. **Clone the Repository:**
+   ```bash
+   git clone <repository-url>
+   cd <repository-folder>
+   pnpm install
+   pnpm migrate
+   ```

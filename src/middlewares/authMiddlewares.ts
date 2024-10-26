@@ -43,7 +43,7 @@ export const authentication = async (
     if (!freshUser) {
       return next(new AppError("User no longer exists", 400));
     }
-    req.user = freshUser;
+    req.user = freshUser.dataValues;
     return next();
   } catch (error) {
     return next(new AppError("Authentication failed", 401));

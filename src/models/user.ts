@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import { DataTypes, Sequelize, Model, Optional } from "sequelize";
 import sequelize from "../config/database";
+import { UserCreationAttributes } from "../types/user";
 
 // Interface defining the attributes of the User
 export interface UserAttributes {
@@ -16,12 +17,6 @@ export interface UserAttributes {
   deletedAt?: Date | null;
   token?: string | null;
 }
-
-// Define UserCreationAttributes for optional fields during creation
-export type UserCreationAttributes = Optional<
-  UserAttributes,
-  "id" | "createdAt" | "updatedAt" | "deletedAt"
->;
 
 // Define the User model using the functional approach
 const User = sequelize.define<Model<UserAttributes, UserCreationAttributes>>(
