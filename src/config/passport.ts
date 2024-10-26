@@ -5,10 +5,9 @@ import {
   ExtractJwt,
   StrategyOptions,
 } from "passport-jwt";
-import dotenv from "dotenv";
 import User from "../models/User";
+import { ENV } from "./config";
 
-dotenv.config();
 // Interface for Payload (adjust fields based on your token structure)
 interface Payload {
   id: number;
@@ -16,7 +15,7 @@ interface Payload {
 
 // Options for the JWT strategy
 const jwtOptions: StrategyOptions = {
-  secretOrKey: process.env.JWT_SECRET_KEY!,
+  secretOrKey: ENV.JWT.SECRET_KEY,
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
 };
 
