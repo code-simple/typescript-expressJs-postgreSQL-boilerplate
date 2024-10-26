@@ -13,6 +13,8 @@ import globalErrorHandler from "./controllers/errorController";
 import dotenv from "dotenv";
 import { errorHandler, successHandler } from "./config/morgan";
 import checkDatabaseConnection from "./services/databaseService";
+import passport from "passport";
+import { jwtStrategy } from "./config/passport";
 
 dotenv.config();
 
@@ -48,8 +50,8 @@ app.use(xss());
 app.use(compression());
 
 // JWT authentication
-// app.use(passport.initialize());
-// passport.use("jwt", jwtStrategy);
+app.use(passport.initialize());
+passport.use("jwt", jwtStrategy);
 
 // Limit repeated failed requests to auth endpoints
 if (process.env.NODE_ENV === "production") {

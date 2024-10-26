@@ -16,6 +16,8 @@
   "description": "",
   "dependencies": {
     "@types/morgan": "^1.9.9",
+    "@types/passport": "^1.0.16",
+    "@types/passport-jwt": "^4.0.1",
     "@types/sequelize": "^4.28.20",
     "@types/winston": "^2.4.4",
     "bcrypt": "^5.1.1",
@@ -29,6 +31,8 @@
     "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
+    "passport": "^0.7.0",
+    "passport-jwt": "^4.0.1",
     "pg": "^8.13.1",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.37.4",
