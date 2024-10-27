@@ -8,7 +8,7 @@ import otpGenerator from "otp-generator";
 const getUniqueOneTimePassword = (size: number = 6): string => {
   return otpGenerator.generate(size, {
     digits: true,
-    lowerCaseAlphabets: true, // Use lowercase alphabets instead
+    lowerCaseAlphabets: false, // Use lowercase alphabets instead
     upperCaseAlphabets: false, // Use uppercase alphabets if needed
     specialChars: false,
   });

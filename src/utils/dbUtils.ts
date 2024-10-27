@@ -27,7 +27,7 @@ const updateRecordById = async (
 
   const result = updatedRows[0];
 
-  return result.dataValues;
+  return result.get({ plain: true });
 };
 
 const getAllRecords = async (

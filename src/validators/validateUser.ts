@@ -46,4 +46,22 @@ export const emailTokenSchema = Joi.object({
   token: Joi.string().required(),
 });
 
+export const updateUserSchema = Joi.object({
+  email: Joi.string().email(),
+  firstName: Joi.string(),
+  lastName: Joi.string(),
+});
+
+export const forgotPasswordSchema = Joi.object({
+  email: Joi.string().email(),
+});
+
+export const resetPasswordSchema = Joi.object({
+  email: Joi.string().email().required(),
+  token: Joi.string().required(),
+  password: Joi.string().max(12).required(),
+  confirmPassword: Joi.string().valid(Joi.ref("password")).required().messages({
+    "any.only": "Confirm password must match the password.",
+  }),
+});
 export default validateUser;

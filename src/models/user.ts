@@ -94,25 +94,10 @@ const User = sequelize.define<Model<UserAttributes, UserCreationAttributes>>(
     },
     hooks: {
       // Before creating a user, hash the password
-      beforeCreate: async (user) => {
-        const { password } = user.get();
-        if (password) {
-          const salt = await bcrypt.genSalt(10);
-          user.dataValues.password = await bcrypt.hash(password, salt);
-        }
-      },
-      beforeUpdate: async (user) => {
-        const { password } = user.get();
-        if (password) {
-          const salt = await bcrypt.genSalt(10);
-          const hashedPassword = await bcrypt.hash(password, salt);
-          user.set("password", hashedPassword);
-        }
-      },
 
       // After updating a user, log the action
       afterUpdate: (user) => {
-        const { email } = user.get();
+        const email = user.get("email");
         console.log(`User with email ${email} was updated`);
       },
     },

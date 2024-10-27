@@ -1,20 +1,15 @@
 import { Request } from "express";
 import { AppError } from "../utils/AppError";
 import User from "../models/User";
-import {
-  generateAuthTokens,
-  generateToken,
-  generateVerifyEmailToken,
-  verifyToken,
-} from "./tokenService";
 import bcrypt from "bcrypt";
 import httpStatusCode, { ReasonPhrases } from "http-status-codes";
 import { UserAttributes } from "../interfaces/user";
 import { tokenTypes } from "../types/token";
 import Token from "../models/Token";
-import { updateUserById } from "./userService";
 import { updateRecordById } from "../utils/dbUtils";
 import { message } from "../utils/message";
+import * as userService from "../services/userService";
+import * as tokenService from "../services/tokenService";
 
 export async function login(req: Request) {
   const { email, password } = req.body;
@@ -22,26 +17,37 @@ export async function login(req: Request) {
   if (!email || !password) {
     throw new AppError("Please provide email and password", 400);
   }
+
   const user = await User.findOne({
     where: { email },
   });
 
-  if (!user || !(await bcrypt.compare(password, user.dataValues.password))) {
+  if (
+    !user ||
+    !(await bcrypt.compare(password, user.get("password") as string))
+  ) {
     throw new AppError("Incorrect email or password", 401);
   }
 
-  if (!user.dataValues.isEmailVerified) {
-    const verifyEmailToken = await generateVerifyEmailToken(user.dataValues);
+  const isEmailVerified = user.get("isEmailVerified");
+  if (!isEmailVerified) {
+    const verifyEmailToken = await tokenService.generateVerifyEmailToken(
+      user.get({ plain: true })
+    );
     // Send token in email to that user
-    console.log(`Emailed to ${user.dataValues.email}: `, verifyEmailToken);
+    console.log(`Emailed to ${user.get("email")}: `, verifyEmailToken);
     throw new AppError(
       message.AUTH.EMAIL_NOT_VERIFIED,
       httpStatusCode.FORBIDDEN
     );
   }
 
-  const tokens = await generateAuthTokens(user.dataValues);
-  return { user, tokens };
+  // Generate new authentication tokens using user's plain data
+  const tokens = await tokenService.generateAuthTokens(
+    user.get({ plain: true })
+  );
+
+  return { user: user.get({ plain: true }), tokens };
 }
 
 export async function signup(req: Request) {
@@ -58,7 +64,7 @@ export async function signup(req: Request) {
   }
   const result = newUser.toJSON();
 
-  const tokens = await generateVerifyEmailToken(result);
+  const tokens = await tokenService.generateVerifyEmailToken(result);
 
   return { result, tokens };
 }
@@ -69,7 +75,7 @@ export const verifyEmail = async (
 ): Promise<void> => {
   try {
     // Verify the token
-    await verifyToken(verifyEmailToken, tokenTypes.VERIFY_EMAIL, user.id);
+    await tokenService.verifyToken(verifyEmailToken, tokenTypes.VERIFY_EMAIL);
 
     // Delete any remaining verification tokens for the user
     await Token.destroy({
@@ -78,6 +84,50 @@ export const verifyEmail = async (
 
     // Update user email status to verified
     await updateRecordById(User, user.id, { isEmailVerified: true });
+  } catch (error) {
+    throw new AppError(ReasonPhrases.UNAUTHORIZED, httpStatusCode.UNAUTHORIZED);
+  }
+};
+
+export const resetPassword = async (
+  userEmail: string,
+  resetPasswordToken: string,
+  newPassword: string
+) => {
+  try {
+    // Fetch the user by email
+    const user = await userService.getUserByEmail(userEmail);
+    if (!user) {
+      throw new AppError(ReasonPhrases.NOT_FOUND, httpStatusCode.NOT_FOUND);
+    }
+
+    // Get the user ID from the plain object
+    const { id } = user.get({ plain: true });
+
+    // Verify the reset password token
+    await tokenService.verifyToken(
+      resetPasswordToken,
+      tokenTypes.RESET_PASSWORD
+    );
+
+    /**
+     Password is hashed if both [password, confirmPassword] 
+    are provided in the request and .update() is called.
+    NOETE: MODEL validators only work with .save() method, not.update() method. 
+    You must have joi validation
+    */
+    await user.update({
+      password: newPassword,
+      confirmPassword: newPassword,
+    });
+
+    // Remove the used reset password token from the database
+    await Token.destroy({
+      where: {
+        userId: id,
+        type: tokenTypes.RESET_PASSWORD,
+      },
+    });
   } catch (error) {
     throw new AppError(ReasonPhrases.UNAUTHORIZED, httpStatusCode.UNAUTHORIZED);
   }

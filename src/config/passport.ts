@@ -5,17 +5,9 @@ import {
 } from "passport-jwt";
 import User from "../models/User";
 import { ENV } from "./config";
+import { Payload } from "../interfaces/token";
 
 // Interface for Payload (adjust fields based on your token structure)
-interface Payload {
-  sub: number; // User ID
-  email: string; // User email
-  fullName: string; // User's full name
-  role: string; // User role
-  iat: number; // Issued at time
-  exp: number; // Expiry time
-  type: string; // Token type
-}
 
 // Options for the JWT strategy
 const jwtOptions: StrategyOptions = {

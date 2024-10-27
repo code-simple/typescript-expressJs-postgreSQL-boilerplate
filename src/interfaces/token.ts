@@ -10,3 +10,13 @@ export interface TokenAttributes {
   createdAt?: Date;
   updatedAt?: Date;
 }
+
+export interface Payload {
+  sub: number; // User ID
+  email: string; // User email
+  fullName: string; // User's full name
+  role: string; // User role
+  iat: number; // Issued at time
+  exp: number; // Expiry time
+  type: string; // Token type
+}

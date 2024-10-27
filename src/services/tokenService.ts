@@ -74,16 +74,9 @@ const saveToken = async (
   return tokenDoc;
 };
 
-/**
- * Verify token and return token doc (or throw an error if it is not valid)
- * @param {string} token
- * @param {string} type
- * @param {number} userId
- * @returns {Promise<Token>}
- */
-const verifyToken = async (token: string, type: string, userId: number) => {
+const verifyToken = async (token: string, type: string) => {
   const tokenDoc = await Token.findOne({
-    where: { token, type, userId, blacklisted: false },
+    where: { token, type, blacklisted: false },
   });
   if (!tokenDoc) {
     throw new Error(message.TOKEN.NOT_FOUND);
@@ -109,7 +102,7 @@ const generateAuthTokens = async (
     tokenTypes.ACCESS
   );
   const refreshTokenExpires = dayjs().add(
-    Number(ENV.JWT.REFRESH_EXPIRES_IN),
+    Number(ENV.JWT.REFRESH_EXPIRES_IN_DAYS),
     "day"
   );
   const refreshToken = generateToken(
@@ -147,14 +140,23 @@ const generateResetPasswordToken = async (email: string): Promise<string> => {
   if (!user) {
     throw new AppError(ReasonPhrases.NOT_FOUND, httpStatus.NOT_FOUND);
   }
-  const expires = dayjs().add(Number(ENV.JWT.REFRESH_EXPIRES_IN), "minute");
+
+  const expires = dayjs().add(
+    Number(ENV.JWT.FORGOT_PASSWORD_EXPIRATION_MINUTES),
+    "minute"
+  );
   const resetPasswordToken = getUniqueOneTimePassword();
+
+  // Use .get() to retrieve the user's ID
+  const userId = user.get("id") as number;
+
   await saveToken(
     resetPasswordToken,
-    user.dataValues.id,
+    userId, // Using the userId retrieved with .get()
     expires,
     tokenTypes.RESET_PASSWORD
   );
+
   return resetPasswordToken;
 };
 
@@ -180,8 +182,35 @@ const generateVerifyEmailToken = async (
  * @param {string} token
  * @returns {object | null}
  */
-const decodeJwtAuthToken = (token: string): object | null => {
-  return jwt.decode(token, { json: true });
+const decodeJwtAuthToken = (token: string) => {
+  return jwt.decode(token);
+};
+
+const refreshTokenService = async (refreshToken: string) => {
+  try {
+    // Verify the refresh token
+    const refreshTokenDoc = await verifyToken(refreshToken, tokenTypes.REFRESH);
+
+    // Get the user associated with the token
+
+    const userId = refreshTokenDoc.get("userId") as number;
+    let user = await userService.getUserById(userId);
+
+    // If no user is found, throw an error
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    // Remove the used refresh token
+    await refreshTokenDoc.destroy();
+
+    // Generate new authentication tokens
+    const tokens = await generateAuthTokens(user.get({ plain: true }));
+    return { user, tokens };
+  } catch (error) {
+    // Throw an API error if any step fails
+    throw new AppError(ReasonPhrases.UNAUTHORIZED, 403);
+  }
 };
 
 export {
@@ -192,4 +221,5 @@ export {
   generateResetPasswordToken,
   generateVerifyEmailToken,
   decodeJwtAuthToken,
+  refreshTokenService,
 };

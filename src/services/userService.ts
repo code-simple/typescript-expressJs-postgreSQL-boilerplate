@@ -7,6 +7,7 @@ import { QueryTypes } from "sequelize";
 import { getQuery } from "./queryService";
 import { UserAttributes } from "../interfaces/user";
 import { getAllRecords } from "../utils/dbUtils";
+import { updateUserSchema } from "../validators/validateUser";
 
 export async function getUserById(id: number) {
   const user = await User.findByPk(id, {
@@ -44,6 +45,10 @@ export async function removeUser(id: string) {
   return user;
 }
 export const updateUserById = async (userId: number, updateBody: object) => {
+  const { value, error } = updateUserSchema.validate(updateBody);
+
+  if (error) throw new AppError(error.details[0].message, 400);
+
   // INFO: Updating passwording using other methods will not hash it in table
   const user = await User.findByPk(userId);
 
@@ -54,5 +59,5 @@ export const updateUserById = async (userId: number, updateBody: object) => {
   await user.update(updateBody);
 
   // Return the updated user data
-  return user.dataValues;
+  return user.get({ plain: true });
 };

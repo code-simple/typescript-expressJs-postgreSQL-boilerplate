@@ -2,8 +2,9 @@ import { Request, Response } from "express";
 import * as userService from "../services/userService";
 import { sendSuccessResponse } from "../utils/responses";
 import { AppError } from "../utils/AppError";
-import { ReasonPhrases } from "http-status-codes";
+import httpStatusCode, { ReasonPhrases } from "http-status-codes";
 import { message } from "../utils/message";
+import { UserAttributes } from "../interfaces/user";
 
 export const getAllUsers = async (_: Request, res: Response) => {
   const users = await userService.getAllUsers();
@@ -12,6 +13,7 @@ export const getAllUsers = async (_: Request, res: Response) => {
 
 export const getUserById = async (req: Request, res: Response) => {
   const { id } = req.params;
+
   const user = await userService.getUserById(Number(id));
   sendSuccessResponse(res, user);
 };
@@ -23,8 +25,13 @@ export const removeUser = async (req: Request, res: Response) => {
 
 export const updateUser = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const { password } = req.body;
-  if (password) throw new AppError(message.AUTH.CANNOT_CHANGE_PASSWORD, 403);
+
+  // Validate user is authenticated and authorized to update their own data
+
+  const userProps = req.user as UserAttributes;
+  if (userProps && userProps.id !== Number(id))
+    throw new AppError(ReasonPhrases.FORBIDDEN, httpStatusCode.FORBIDDEN);
+
   const updatedUser = await userService.updateUserById(Number(id), req.body);
   sendSuccessResponse(res, updatedUser);
 };
