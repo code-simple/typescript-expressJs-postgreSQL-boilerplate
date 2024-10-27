@@ -28,9 +28,9 @@ export async function getUserByEmail(email: string) {
 }
 
 export async function getAllUsers() {
-  const users = await getQuery('SELECT * FROM "User"');
-  // OR
-  // const users = await getAllRecords(User, {});
+  const users = await User.findAll();
+  // or
+  // const users = await User.scope("withPassword").findAll(); // Include password if needed
   return users;
 }
 
@@ -44,18 +44,15 @@ export async function removeUser(id: string) {
   return user;
 }
 export const updateUserById = async (userId: number, updateBody: object) => {
-  // Fetch the user by ID
-  const [updatedCount, updatedRows] = await User.update(updateBody, {
-    where: { id: userId },
-    returning: true, // Optional: returns the updated rows
-  });
+  // INFO: Updating passwording using other methods will not hash it in table
+  const user = await User.findByPk(userId);
 
-  if (updatedCount === 0) {
+  if (!user) {
     throw new AppError(ReasonPhrases.NOT_FOUND, httpStatusCode.NOT_FOUND);
   }
 
-  // Return the first updated record
-  const result = updatedRows[0];
+  await user.update(updateBody);
 
-  return result.dataValues;
+  // Return the updated user data
+  return user.dataValues;
 };

@@ -5,8 +5,10 @@ import {
   getAllUsers,
   getUserById,
   removeUser,
+  updateUser,
 } from "../../controllers/userController";
 import auth from "../../middlewares/auth";
+import { updateUserById } from "../../services/userService";
 
 const router = express.Router();
 
@@ -15,5 +17,6 @@ const router = express.Router();
 router.get("/", auth("getUsers"), catchAsync(getAllUsers));
 router.get("/:id", auth(), catchAsync(getUserById));
 router.delete("/:id", auth(), catchAsync(removeUser));
+router.patch("/:id", auth(), catchAsync(updateUser));
 
 export default router;

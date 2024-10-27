@@ -14,6 +14,7 @@ import { tokenTypes } from "../types/token";
 import Token from "../models/Token";
 import { updateUserById } from "./userService";
 import { updateRecordById } from "../utils/dbUtils";
+import { message } from "../utils/message";
 
 export async function login(req: Request) {
   const { email, password } = req.body;
@@ -33,7 +34,10 @@ export async function login(req: Request) {
     const verifyEmailToken = await generateVerifyEmailToken(user.dataValues);
     // Send token in email to that user
     console.log(`Emailed to ${user.dataValues.email}: `, verifyEmailToken);
-    throw new AppError(ReasonPhrases.FORBIDDEN, httpStatusCode.FORBIDDEN);
+    throw new AppError(
+      message.AUTH.EMAIL_NOT_VERIFIED,
+      httpStatusCode.FORBIDDEN
+    );
   }
 
   const tokens = await generateAuthTokens(user.dataValues);

@@ -55,15 +55,13 @@ const User = sequelize.define<Model<UserAttributes, UserCreationAttributes>>(
       allowNull: false,
     },
     confirmPassword: {
-      type: DataTypes.VIRTUAL, // Virtual field, not stored in the database
+      type: DataTypes.VIRTUAL,
       set(this: Model<UserAttributes, UserCreationAttributes>, val: string) {
-        // Use bcrypt to hash password if it matches confirmation
-        if (val === this.getDataValue("password")) {
-          const hashedPassword = bcrypt.hashSync(val, 10);
-          this.setDataValue("password", hashedPassword);
-        } else {
+        if (val !== this.getDataValue("password")) {
           throw new Error("Passwords do not match");
         }
+        const hashedPassword = bcrypt.hashSync(val, 10);
+        this.setDataValue("password", hashedPassword);
       },
     },
     createdAt: {
@@ -85,7 +83,39 @@ const User = sequelize.define<Model<UserAttributes, UserCreationAttributes>>(
     modelName: "User",
     paranoid: true, // Enables soft deletion with deletedAt
     freezeTableName: true,
-    // Use the model name as the table name without pluralization
+    // INFO: If removed password from the request body , Most of methods won't work e.g User.save()
+    // better handle it in service or controllers
+    defaultScope: {
+      attributes: { exclude: ["deletedAt"] }, // Exclude password by default
+    },
+    // in case you need passwords then User.scope("cleanQuery").findAll({});
+    scopes: {
+      cleanQuery: { attributes: { include: ["password", "deletedAt"] } },
+    },
+    hooks: {
+      // Before creating a user, hash the password
+      beforeCreate: async (user) => {
+        const { password } = user.get();
+        if (password) {
+          const salt = await bcrypt.genSalt(10);
+          user.dataValues.password = await bcrypt.hash(password, salt);
+        }
+      },
+      beforeUpdate: async (user) => {
+        const { password } = user.get();
+        if (password) {
+          const salt = await bcrypt.genSalt(10);
+          const hashedPassword = await bcrypt.hash(password, salt);
+          user.set("password", hashedPassword);
+        }
+      },
+
+      // After updating a user, log the action
+      afterUpdate: (user) => {
+        const { email } = user.get();
+        console.log(`User with email ${email} was updated`);
+      },
+    },
     timestamps: true, // Automatically manage createdAt and updatedAt
   }
 );
