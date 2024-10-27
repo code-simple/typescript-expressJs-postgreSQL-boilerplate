@@ -8,7 +8,8 @@ export const getAllUsers = async (_: Request, res: Response) => {
 };
 
 export const getUserById = async (req: Request, res: Response) => {
-  const user = await userService.getUserById(req.params.id);
+  const { id } = req.params;
+  const user = await userService.getUserById(Number(id));
   sendSuccessResponse(res, user);
 };
 

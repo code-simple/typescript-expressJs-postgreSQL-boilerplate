@@ -5,9 +5,9 @@ type Role = "0" | "1" | "2";
 
 // Role permissions based on the numeric role identifiers
 const allRoles: Record<Role, string[]> = {
-  "0": [], // Role 0: No specific rights
+  "0": ["getUsers", "manageUsers"], // Role 2: Admin rights
   "1": ["getUsers"], // Role 1: Limited rights (example)
-  "2": ["getUsers", "manageUsers"], // Role 2: Admin rights
+  "2": [], // Role 0: No specific rights
 };
 
 const roles: Role[] = Object.keys(allRoles) as Role[];

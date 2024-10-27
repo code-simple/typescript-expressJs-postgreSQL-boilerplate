@@ -1,5 +1,3 @@
-// src/config/passport.ts
-
 import {
   Strategy as JwtStrategy,
   ExtractJwt,
@@ -10,12 +8,18 @@ import { ENV } from "./config";
 
 // Interface for Payload (adjust fields based on your token structure)
 interface Payload {
-  id: number;
+  sub: number; // User ID
+  email: string; // User email
+  fullName: string; // User's full name
+  role: string; // User role
+  iat: number; // Issued at time
+  exp: number; // Expiry time
+  type: string; // Token type
 }
 
 // Options for the JWT strategy
 const jwtOptions: StrategyOptions = {
-  secretOrKey: ENV.JWT.SECRET_KEY,
+  secretOrKey: ENV.JWT.SECRET_KEY!,
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
 };
 
@@ -25,8 +29,8 @@ const jwtVerify = async (
   done: (error: any, user?: any) => void
 ) => {
   try {
-    // Adjust the User model method if you use a different method to find users
-    const user = await User.findByPk(payload.id);
+    // Use payload.sub as it contains the user's ID
+    const user = await User.findByPk(payload.sub);
     if (!user) {
       return done(null, false);
     }

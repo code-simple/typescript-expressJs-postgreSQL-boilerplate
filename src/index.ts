@@ -15,6 +15,7 @@ import { errorHandler, successHandler } from "./config/morgan";
 import checkDatabaseConnection from "./services/databaseService";
 import passport from "passport";
 import { jwtStrategy } from "./config/passport";
+import { ENV } from "./config/config";
 
 dotenv.config();
 

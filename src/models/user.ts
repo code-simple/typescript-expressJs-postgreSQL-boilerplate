@@ -16,6 +16,7 @@ export interface UserAttributes {
   updatedAt?: Date;
   deletedAt?: Date | null;
   token?: string | null;
+  isEmailVerified?: boolean;
 }
 
 // Define the User model using the functional approach
@@ -45,6 +46,10 @@ const User = sequelize.define<Model<UserAttributes, UserCreationAttributes>>(
       unique: true,
       allowNull: false,
     },
+    isEmailVerified: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
     password: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -73,6 +78,7 @@ const User = sequelize.define<Model<UserAttributes, UserCreationAttributes>>(
     },
     deletedAt: {
       type: DataTypes.DATE,
+      defaultValue: null,
     },
   },
   {

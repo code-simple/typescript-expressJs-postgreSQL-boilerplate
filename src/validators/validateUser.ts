@@ -41,4 +41,9 @@ const validateUser = catchAsync(
   }
 );
 
+export const emailTokenSchema = Joi.object({
+  email: Joi.string().email().required(),
+  token: Joi.string().required(),
+});
+
 export default validateUser;

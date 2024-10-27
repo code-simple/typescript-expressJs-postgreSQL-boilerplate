@@ -10,9 +10,9 @@ import auth from "../../middlewares/auth";
 
 const router = express.Router();
 
-// How to use auth middlewares: Goto /config/roles.ts to set roles fod differently type of users
-// auth("getUsers", "manageUsers") if user is having role="2" he will be able to access this api else not
-router.get("/", auth(), catchAsync(getAllUsers));
+// How to use auth middlewares: Goto /config/roles.ts to set roles for differently type of users
+// e.g here when i mention auth("getUsers") it means role: 0 and 1 can access to this , nobody else.
+router.get("/", auth("getUsers"), catchAsync(getAllUsers));
 router.get("/:id", auth(), catchAsync(getUserById));
 router.delete("/:id", auth(), catchAsync(removeUser));
 
