@@ -10,7 +10,7 @@ export interface UserAttributes {
   firstName: string;
   lastName: string;
   email: string;
-  password?: string;
+  password: string;
   confirmPassword?: string; // Virtual attribute, not stored in DB
   createdAt?: Date;
   updatedAt?: Date;
