@@ -8,6 +8,7 @@ import { getQuery } from "./queryService";
 import { UserAttributes } from "../interfaces/user";
 import { getAllRecords } from "../utils/dbUtils";
 import { updateUserSchema } from "../validators/validateUser";
+import Post from "../models/Posts";
 
 export async function getUserById(id: number) {
   const user = await User.findByPk(id, {
@@ -29,7 +30,14 @@ export async function getUserByEmail(email: string) {
 }
 
 export async function getAllUsers() {
-  const users = await User.findAll();
+  const users = await User.findAll({
+    include: [
+      {
+        model: Post,
+        as: "posts", // Must match the alias defined in associations.ts
+      },
+    ],
+  });
   // or
   // const users = await User.scope("withPassword").findAll(); // Include password if needed
   return users;

@@ -1,5 +1,6 @@
 import sequelize from "../config/database";
 import { Server } from "http";
+import associateModels from "../models/associations";
 
 const checkDatabaseConnection = async (
   server: Server,
@@ -7,7 +8,14 @@ const checkDatabaseConnection = async (
 ) => {
   try {
     await sequelize.authenticate(); // Attempt to connect to the database
-    callback(); // Execute the callback if successful
+
+    associateModels();
+
+    // Sync the database to create or update tables based on models
+    await sequelize.sync({ alter: true });
+    callback();
+
+    // Execute the callback if successful
   } catch (error) {
     console.error("Unable to connect to the database:", error);
     server.close(() => {

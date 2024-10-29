@@ -1,3 +1,5 @@
+Experimenting Association
+
 # TypeScript Express PostgreSQL Backend Boilerplate
 
 This project is a boilerplate setup for building a RESTful API using TypeScript, Express.js, and PostgreSQL, utilizing Sequelize as the ORM. It includes essential features such as JWT-based authentication, request validation, rate limiting for specific routes, and project structuring best practices.

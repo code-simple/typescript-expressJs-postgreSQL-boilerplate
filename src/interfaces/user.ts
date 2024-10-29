@@ -5,9 +5,9 @@ export interface UserAttributes {
   lastName: string;
   email: string;
   password: string;
-  confirmPassword: string;
-  createdAt: Date;
-  updatedAt: Date;
-  deletedAt?: Date;
+  confirmPassword?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+  deletedAt?: Date | null;
   token?: string | null;
 }

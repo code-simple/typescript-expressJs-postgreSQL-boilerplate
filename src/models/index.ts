@@ -1,10 +1,10 @@
-import { Sequelize } from "sequelize-typescript";
 import path from "path";
 import fs from "fs";
 import sequelize from "../config/database"; // Import the configured Sequelize instance
+import associateModels from "./associations";
 
-// Array to store models
-const models: any[] = [];
+// Object to store models by name
+const db: { [key: string]: any } = {};
 
 // Dynamically load all models in the current directory
 fs.readdirSync(__dirname)
@@ -19,12 +19,25 @@ fs.readdirSync(__dirname)
   .forEach((file) => {
     const model = require(path.join(__dirname, file)).default;
     if (model) {
-      models.push(model);
+      db[model.name] = model; // Store model by name in db object
+      sequelize.models[model.name] = model; // Add each model to sequelize.models
     }
   });
-// Add all loaded models to Sequelize
-models.forEach((model) => {
-  sequelize.models[model.name] = model;
-});
 
-export default sequelize; // Default export of the configured Sequelize instance
+// Import and define associations after all models are loaded
+associateModels();
+
+console.log("Attempting to sync database...");
+
+sequelize
+  .sync({ alter: true })
+  .then(() => {
+    console.log("Database synced successfully.");
+  })
+  .catch((error) => {
+    console.error("Error syncing database:", error);
+  });
+
+// Export the sequelize instance and models
+export { sequelize, db };
+export default sequelize;

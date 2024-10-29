@@ -2,13 +2,14 @@ import jwt from "jsonwebtoken";
 import dayjs from "dayjs";
 import * as userService from "./userService";
 import { AppError } from "../utils/AppError";
-import { UserAttributes } from "../models/User";
+
 import { getUniqueOneTimePassword } from "../utils/helper";
 import { tokenTypes } from "../types/token";
 import httpStatus, { ReasonPhrases } from "http-status-codes";
 import { message } from "../utils/message";
 import { ENV } from "../config/config";
 import Token from "../models/Token";
+import { UserAttributes } from "../interfaces/user";
 
 interface AuthTokens {
   access: {
@@ -205,7 +206,7 @@ const refreshTokenService = async (refreshToken: string) => {
     await refreshTokenDoc.destroy();
 
     // Generate new authentication tokens
-    const tokens = await generateAuthTokens(user.get({ plain: true }));
+    const tokens = await generateAuthTokens(user.get());
     return { user, tokens };
   } catch (error) {
     // Throw an API error if any step fails
