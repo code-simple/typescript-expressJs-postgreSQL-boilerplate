@@ -13,6 +13,7 @@ import {
 } from "../validators/validateUser";
 import * as userService from "../services/userService";
 import { ENV } from "../config/config";
+import { tokenTypes } from "../types/token";
 
 const signup = async (req: Request, res: Response) => {
   const result = await authService.signup(req);
@@ -88,6 +89,12 @@ const resetPassword = async (req: Request, res: Response) => {
   sendSuccessResponse(res, "Successfully reset password");
 };
 
+const logout = async (req: Request, res: Response) => {
+  const userProps = req.user as UserAttributes;
+  await authService.logout(userProps.id);
+  sendSuccessResponse(res, "Successfully logged out");
+};
+
 export {
   signup,
   login,
@@ -95,4 +102,5 @@ export {
   refreshToken,
   forgotPassword,
   resetPassword,
+  logout,
 };

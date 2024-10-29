@@ -62,7 +62,6 @@ const Token = sequelize.define<Model<TokenAttributes, TokenCreationAttributes>>(
   {
     modelName: "Token",
     timestamps: true,
-    paranoid: true,
     freezeTableName: true,
   }
 );

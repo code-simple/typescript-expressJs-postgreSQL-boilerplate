@@ -10,6 +10,7 @@ import { updateRecordById } from "../utils/dbUtils";
 import { message } from "../utils/message";
 import * as userService from "../services/userService";
 import * as tokenService from "../services/tokenService";
+import { messages } from "../utils/constants";
 
 export async function login(req: Request) {
   const { email, password } = req.body;
@@ -132,3 +133,22 @@ export const resetPassword = async (
     throw new AppError(ReasonPhrases.UNAUTHORIZED, httpStatusCode.UNAUTHORIZED);
   }
 };
+
+export async function logout(userId: number) {
+  try {
+    const deletedTokensCount = await Token.destroy({
+      where: { userId },
+    });
+
+    if (!deletedTokensCount) {
+      throw new AppError(message.TOKEN.NOT_FOUND, httpStatusCode.NOT_FOUND);
+    }
+
+    return { message: "Logout successful. All tokens deleted." };
+  } catch (error) {
+    throw new AppError(
+      message.TOKEN.NOT_FOUND,
+      httpStatusCode.INTERNAL_SERVER_ERROR
+    );
+  }
+}
