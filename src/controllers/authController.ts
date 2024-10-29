@@ -36,7 +36,7 @@ const verifyEmail = async (req: Request, res: Response) => {
 
   await authService.verifyEmail(value.token, userAttributes);
   const tokens = await tokenService.generateAuthTokens(userAttributes);
-  const id = user.get("id") as number;
+  const { id } = user.get();
   user = await getUserById(id);
   sendSuccessResponse(res, { user, tokens });
 };

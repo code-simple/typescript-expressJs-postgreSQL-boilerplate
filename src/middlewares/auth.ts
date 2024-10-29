@@ -27,12 +27,12 @@ const verifyCallback =
       );
     }
     req.user = user;
-
     if (requiredRights.length) {
       const userRights = roleRights.get(user.role) || [];
       const hasRequiredRights = requiredRights.every((requiredRight) =>
         userRights.includes(requiredRight)
       );
+
       if (!hasRequiredRights) {
         return reject(
           new AppError(messages.PLEASE_AUTHENTICATE, httpStatus.FORBIDDEN)

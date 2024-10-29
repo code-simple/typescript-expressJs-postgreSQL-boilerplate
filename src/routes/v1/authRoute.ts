@@ -12,5 +12,5 @@ router.post("/verifyEmail", catchAsync(authController.verifyEmail));
 router.post("/refreshToken", catchAsync(authController.refreshToken));
 router.post("/forgotPassword", catchAsync(authController.forgotPassword));
 router.post("/resetPassword", catchAsync(authController.resetPassword));
-router.get("/logout", auth(), catchAsync(authController.logout));
+router.get("/logout", auth(), catchAsync(authController.logout)); // Its important to use logout route for front end to delete all unneccessary access tokens at once.
 export default router;

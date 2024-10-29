@@ -28,10 +28,6 @@ export const updateUser = async (req: Request, res: Response) => {
 
   // Validate user is authenticated and authorized to update their own data
 
-  const userProps = req.user as UserAttributes;
-  if (userProps && userProps.id !== Number(id))
-    throw new AppError(ReasonPhrases.FORBIDDEN, httpStatusCode.FORBIDDEN);
-
   const updatedUser = await userService.updateUserById(Number(id), req.body);
   sendSuccessResponse(res, updatedUser);
 };

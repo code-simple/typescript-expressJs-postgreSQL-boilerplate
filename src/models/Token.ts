@@ -34,6 +34,7 @@ const Token = sequelize.define<Model<TokenAttributes, TokenCreationAttributes>>(
     },
     type: {
       type: DataTypes.ENUM(
+        tokenTypes.ACCESS,
         tokenTypes.REFRESH,
         tokenTypes.RESET_PASSWORD,
         tokenTypes.VERIFY_EMAIL
