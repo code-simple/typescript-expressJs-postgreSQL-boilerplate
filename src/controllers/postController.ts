@@ -17,15 +17,15 @@ const getAllPosts = async (req: Request, res: Response) => {
     include: [
       {
         model: User,
-        as: "author", // Must match the alias defined in associations.ts
+        as: "author",
         attributes: ["id", "firstName", "lastName", "email"],
       },
     ],
   });
 
-  if (!posts)
+  if (!posts) {
     throw new AppError(ReasonPhrases.NOT_FOUND, httpStatusCode.NOT_FOUND);
-
+  }
   sendSuccessResponse(res, posts);
 };
 

@@ -2,8 +2,10 @@ import Post from "./Posts";
 import User from "./User";
 
 const associateModels = async () => {
-  User.hasMany(Post, { foreignKey: "id" });
-  Post.belongsTo(User, { foreignKey: "userId", as: "author" });
+  //-----------------------USER | POST------------------------------
+  User.hasMany(Post, { foreignKey: "userId" });
+  Post.belongsTo(User, { foreignKey: "userId" });
+  //----------------------------------------------------------------
 };
 
 export default associateModels;

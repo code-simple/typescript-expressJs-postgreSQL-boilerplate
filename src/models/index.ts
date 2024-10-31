@@ -1,7 +1,7 @@
 import path from "path";
 import fs from "fs";
 import sequelize from "../config/database"; // Import the configured Sequelize instance
-import associateModels from "./associations";
+import associateModels from "./Associations";
 
 // Object to store models by name
 const db: { [key: string]: any } = {};

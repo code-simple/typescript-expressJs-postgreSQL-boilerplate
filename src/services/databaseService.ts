@@ -1,6 +1,6 @@
 import sequelize from "../config/database";
 import { Server } from "http";
-import associateModels from "../models/associations";
+import associateModels from "../models/Associations";
 
 const checkDatabaseConnection = async (
   server: Server,
@@ -12,7 +12,12 @@ const checkDatabaseConnection = async (
     associateModels();
 
     // Sync the database to create or update tables based on models
-    await sequelize.sync({ alter: true });
+    /**
+     *  INFO: With { alter: true } you dont have to do migrations. But when db become complicated and more tables are added,
+     *  then its not recommended , it also takes out takes out the opiton of Rollbacking migration because you cant migrate anymore
+     */
+    // await sequelize.sync({ alter: true });
+    await sequelize.sync();
     callback();
 
     // Execute the callback if successful
