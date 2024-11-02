@@ -2,7 +2,6 @@ import bcrypt from "bcrypt";
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../config/database";
 import { UserCreationAttributes } from "../types/user";
-import Post from "./Posts";
 import { UserAttributes } from "../interfaces/User";
 
 // Define the User model using the functional approach
