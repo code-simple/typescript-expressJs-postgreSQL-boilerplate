@@ -33,3 +33,7 @@ Make start.sh executable before using pm2
 chmod +x start.sh
 pm2 start ecosystem.config.json
 ```
+
+## SWAGGER
+
+For swagger visit http://localhost:4000/api/v1/docs , to create swagger just write swagger docs
