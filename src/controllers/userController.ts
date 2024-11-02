@@ -4,7 +4,7 @@ import { sendSuccessResponse } from "../utils/responses";
 import { AppError } from "../utils/AppError";
 import httpStatusCode, { ReasonPhrases } from "http-status-codes";
 import { message } from "../utils/message";
-import { UserAttributes } from "../interfaces/user";
+import { UserAttributes } from "../interfaces/User";
 
 export const getAllUsers = async (_: Request, res: Response) => {
   const users = await userService.getAllUsers();

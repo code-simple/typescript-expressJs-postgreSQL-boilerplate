@@ -9,7 +9,7 @@ import httpStatus, { ReasonPhrases } from "http-status-codes";
 import { message } from "../utils/message";
 import { ENV } from "../config/config";
 import Token from "../models/Token";
-import { UserAttributes } from "../interfaces/user";
+import { UserAttributes } from "../interfaces/User";
 
 interface AuthTokens {
   access: {

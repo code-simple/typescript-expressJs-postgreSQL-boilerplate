@@ -3,7 +3,7 @@ import { createPostSchema } from "../validators/validatePost";
 import { AppError } from "../utils/AppError";
 import httpStatusCode, { ReasonPhrases } from "http-status-codes";
 import Post from "../models/Posts";
-import { UserAttributes } from "../interfaces/user";
+import { UserAttributes } from "../interfaces/User";
 
 const createPost = async (req: Request) => {
   const { value, error } = createPostSchema.validate(req.body);

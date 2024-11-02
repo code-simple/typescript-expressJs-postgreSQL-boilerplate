@@ -6,7 +6,7 @@ import {
 import User from "../models/User";
 import Token from "../models/Token"; // Import the Token model
 import { ENV } from "./config";
-import { Payload } from "../interfaces/token";
+import { Payload } from "../interfaces/Token";
 
 // JWT strategy options
 const jwtOptions: StrategyOptions = {

@@ -3,7 +3,7 @@ import { AppError } from "../utils/AppError";
 import User from "../models/User";
 import bcrypt from "bcrypt";
 import httpStatusCode, { ReasonPhrases } from "http-status-codes";
-import { UserAttributes } from "../interfaces/user";
+import { UserAttributes } from "../interfaces/User";
 import { tokenTypes } from "../types/token";
 import Token from "../models/Token";
 import { updateRecordById } from "../utils/dbUtils";

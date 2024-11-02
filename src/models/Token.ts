@@ -2,7 +2,7 @@
 
 import { DataTypes, Sequelize, Model, Optional } from "sequelize";
 import sequelize from "../config/database";
-import { TokenAttributes } from "../interfaces/token"; // Import the User model for associations
+import { TokenAttributes } from "../interfaces/Token"; // Import the User model for associations
 import { tokenTypes } from "../types/token";
 
 // Define optional attributes for token creation

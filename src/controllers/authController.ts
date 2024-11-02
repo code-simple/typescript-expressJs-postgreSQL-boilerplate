@@ -5,7 +5,7 @@ import * as authService from "../services/authService";
 import { getUserByEmail, getUserById } from "../services/userService";
 import { AppError } from "../utils/AppError";
 import httpStatusCode, { ReasonPhrases } from "http-status-codes";
-import { UserAttributes } from "../interfaces/user";
+import { UserAttributes } from "../interfaces/User";
 import {
   emailTokenSchema,
   forgotPasswordSchema,

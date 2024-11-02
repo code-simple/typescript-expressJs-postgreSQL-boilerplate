@@ -5,7 +5,7 @@ import { Request } from "express";
 import sequelize from "../models";
 import { QueryTypes } from "sequelize";
 import { getQuery } from "./queryService";
-import { UserAttributes } from "../interfaces/user";
+import { UserAttributes } from "../interfaces/User";
 import { getAllRecords } from "../utils/dbUtils";
 import { updateUserSchema } from "../validators/validateUser";
 import Post from "../models/Posts";
