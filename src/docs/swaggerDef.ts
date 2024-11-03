@@ -23,7 +23,6 @@ interface SwaggerDefinition {
       };
     };
   };
-  security?: Array<{ bearerAuth: [] }>;
 }
 
 const swaggerDef: SwaggerDefinition = {
@@ -38,7 +37,7 @@ const swaggerDef: SwaggerDefinition = {
   },
   servers: [
     {
-      url: `http://localhost:${ENV.APP.PORT}/api/v1`,
+      url: ENV.APP.SERVER_HOST_URL,
     },
   ],
   components: {
@@ -50,11 +49,6 @@ const swaggerDef: SwaggerDefinition = {
       },
     },
   },
-  security: [
-    {
-      bearerAuth: [],
-    },
-  ],
 };
 
 export default swaggerDef;

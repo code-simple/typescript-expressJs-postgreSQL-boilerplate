@@ -272,6 +272,8 @@ export default router;
  *     description: Logs out the authenticated user by invalidating their session or tokens.
  *     tags:
  *       - Authentication
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: User logged out successfully

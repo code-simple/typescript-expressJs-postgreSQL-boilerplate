@@ -20,6 +20,10 @@ export const ENV = {
       process.env.JWT_FORGOT_PASSWORD_EXPIRATION_MINUTES,
   },
   APP: {
+    SERVER_HOST_URL:
+      process.env.NODE_ENV === "production"
+        ? `${process.env.HOST_IP}:${process.env.APP_PORT}/api/v1`
+        : `http://localhost:${process.env.APP_PORT}/api/v1`,
     PORT: process.env.APP_PORT ? parseInt(process.env.APP_PORT, 10) : 3000,
     ENV: process.env.NODE_ENV || "development",
   },
