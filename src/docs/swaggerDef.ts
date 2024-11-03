@@ -29,7 +29,7 @@ interface SwaggerDefinition {
 const swaggerDef: SwaggerDefinition = {
   openapi: "3.0.0",
   info: {
-    title: "Typescript-Express-PostgreSQL-Boilerplate API documentation",
+    title: "Typescript ExpressJs PostgreSQL API documentation",
     version,
     license: {
       name: "MIT",
