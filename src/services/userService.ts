@@ -10,7 +10,7 @@ import { getAllRecords } from "../utils/dbUtils";
 import { updateUserSchema } from "../validators/validateUser";
 import Post from "../models/Posts";
 
-export async function getUserById(id: number) {
+async function getUserById(id: number) {
   const user = await User.findByPk(id, {
     attributes: { exclude: ["password"] },
   });
@@ -21,7 +21,7 @@ export async function getUserById(id: number) {
   return user;
 }
 
-export async function getUserByEmail(email: string) {
+async function getUserByEmail(email: string) {
   const user = await User.findOne({ where: { email } });
   if (!user) {
     throw new AppError(ReasonPhrases.NOT_FOUND, httpStatusCode.NOT_FOUND);
@@ -29,7 +29,7 @@ export async function getUserByEmail(email: string) {
   return user;
 }
 
-export async function getAllUsers() {
+async function getAllUsers() {
   const users = await User.findAll({
     include: [
       {
@@ -43,7 +43,7 @@ export async function getAllUsers() {
   return users;
 }
 
-export async function removeUser(id: string) {
+async function removeUser(id: string) {
   // delete by pk
   const user = await User.findByPk(id);
   if (!user) {
@@ -52,7 +52,7 @@ export async function removeUser(id: string) {
   await user.destroy();
   return user;
 }
-export const updateUserById = async (userId: number, updateBody: object) => {
+const updateUserById = async (userId: number, updateBody: object) => {
   const { value, error } = updateUserSchema.validate(updateBody);
 
   if (error) throw new AppError(error.details[0].message, 400);
@@ -69,3 +69,5 @@ export const updateUserById = async (userId: number, updateBody: object) => {
   // Return the updated user data
   return user.get({ plain: true });
 };
+
+export { getUserById, getUserByEmail, getAllUsers, removeUser, updateUserById };

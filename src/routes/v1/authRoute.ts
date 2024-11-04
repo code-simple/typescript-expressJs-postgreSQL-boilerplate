@@ -1,8 +1,8 @@
 import express from "express";
 import * as authController from "../../controllers/authController";
 import catchAsync from "../../utils/catchAsync";
-import { validateUser } from "../../validators";
 import auth from "../../middlewares/auth";
+import { validateUser } from "../../validators";
 
 const router = express.Router();
 

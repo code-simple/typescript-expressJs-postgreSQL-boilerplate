@@ -41,22 +41,22 @@ const validateUser = catchAsync(
   }
 );
 
-export const emailTokenSchema = Joi.object({
+const emailTokenSchema = Joi.object({
   email: Joi.string().email().required(),
   token: Joi.string().required(),
 });
 
-export const updateUserSchema = Joi.object({
+const updateUserSchema = Joi.object({
   email: Joi.string().email(),
   firstName: Joi.string(),
   lastName: Joi.string(),
 });
 
-export const forgotPasswordSchema = Joi.object({
+const forgotPasswordSchema = Joi.object({
   email: Joi.string().email(),
 });
 
-export const resetPasswordSchema = Joi.object({
+const resetPasswordSchema = Joi.object({
   email: Joi.string().email().required(),
   token: Joi.string().required(),
   password: Joi.string().max(12).required(),
@@ -64,4 +64,11 @@ export const resetPasswordSchema = Joi.object({
     "any.only": "Confirm password must match the password.",
   }),
 });
-export default validateUser;
+
+export {
+  validateUser,
+  emailTokenSchema,
+  updateUserSchema,
+  forgotPasswordSchema,
+  resetPasswordSchema,
+};

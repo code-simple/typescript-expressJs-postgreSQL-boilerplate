@@ -1,1 +1,1 @@
-export { default as validateUser } from "./validateUser";
+export { validateUser } from "./validateUser";

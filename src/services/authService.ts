@@ -12,7 +12,7 @@ import * as userService from "../services/userService";
 import * as tokenService from "../services/tokenService";
 import { messages } from "../utils/constants";
 
-export async function login(req: Request) {
+async function login(req: Request) {
   const { email, password } = req.body;
 
   if (!email || !password) {
@@ -51,7 +51,7 @@ export async function login(req: Request) {
   return { user: user.get({ plain: true }), tokens };
 }
 
-export async function signup(req: Request) {
+async function signup(req: Request) {
   const body = req.body;
 
   if (!["1", "2"].includes(body.role)) {
@@ -70,7 +70,7 @@ export async function signup(req: Request) {
   return { result, tokens };
 }
 
-export const verifyEmail = async (
+const verifyEmail = async (
   verifyEmailToken: string,
   user: UserAttributes
 ): Promise<void> => {
@@ -90,7 +90,7 @@ export const verifyEmail = async (
   }
 };
 
-export const resetPassword = async (
+const resetPassword = async (
   userEmail: string,
   resetPasswordToken: string,
   newPassword: string
@@ -134,7 +134,7 @@ export const resetPassword = async (
   }
 };
 
-export async function logout(userId: number) {
+async function logout(userId: number) {
   try {
     const deletedTokensCount = await Token.destroy({
       where: { userId },
@@ -152,3 +152,5 @@ export async function logout(userId: number) {
     );
   }
 }
+
+export { logout, login, signup, verifyEmail, resetPassword };
