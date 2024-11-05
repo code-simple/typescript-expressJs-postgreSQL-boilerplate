@@ -11,7 +11,9 @@ const addMedia = async (req: Request, res: Response) => {
     const fileUrl = `https://${ENV.S3.BUCKET_NAME}.s3.amazonaws.com/${req.file.key}`;
     res.status(httpStatus.CREATED).json(fileUrl);
   } else {
-    res.status(400).send("No file uploaded.");
+    res
+      .status(400)
+      .send("No file uploaded. Make sure field name [file] is correct");
   }
 };
 
@@ -23,7 +25,9 @@ const addMultipleMedia = async (req: Request, res: Response) => {
     });
     res.status(httpStatus.CREATED).json(fileUrls);
   } else {
-    res.status(400).send("No files uploaded.");
+    res
+      .status(400)
+      .send("No files uploaded.Make sure field name [files] is correct");
   }
 };
 
