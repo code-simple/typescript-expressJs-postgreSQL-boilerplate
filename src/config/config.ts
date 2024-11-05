@@ -27,4 +27,10 @@ export const ENV = {
     PORT: process.env.APP_PORT ? parseInt(process.env.APP_PORT, 10) : 3000,
     ENV: process.env.NODE_ENV || "development",
   },
+  S3: {
+    ACCESS_KEY_ID: process.env.ACCESS_KEY_ID,
+    SECRET_ACCESS_KEY: process.env.SECRET_ACCESS_KEY,
+    REGION: process.env.REGION,
+    BUCKET_NAME: process.env.BUCKET_NAME,
+  },
 };
