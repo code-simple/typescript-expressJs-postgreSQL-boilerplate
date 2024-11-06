@@ -5,14 +5,17 @@ This project is a boilerplate setup for building a RESTful API using TypeScript,
 ## Table of Contents
 
 - [Setup and Installation](#setup-and-installation)
+  - [Setup for EC2](#setup-for-ec2)
+  - [Install TypeScript globally](#install-typescript-globally)
+  - [Clone the Repository](#clone-the-repository)
 - [PM2](#pm2)
-- [SWAGGER](#swagger)
+- [Swagger](#swagger)
 
 ## Setup and Installation
 
 1. **Setup and Installation**
 
-   # Setup for EC2
+   ### Setup for EC2
 
    [Prepare EC2](https://github.com/code-simple/nodejs-on-ec2)
 
