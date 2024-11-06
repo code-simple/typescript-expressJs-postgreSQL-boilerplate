@@ -11,9 +11,7 @@ This project is a boilerplate setup for building a RESTful API using TypeScript,
 - [PM2](#pm2)
 - [Swagger](#swagger)
 
-## Setup and Installation
-
-1. **Setup and Installation**
+1. # Setup and Installation
 
    ### Setup for EC2
 
@@ -36,14 +34,14 @@ This project is a boilerplate setup for building a RESTful API using TypeScript,
    tsc -v
    ```
 
-2. **Clone the Repository:**
+2. # Clone the Repository:
    ```bash
    git clone <repository-url>
    cd <repository-folder>
    pnpm install
    pnpm migrate
    ```
-3. **PM2**
+3. # PM2
 
    Make sure to build before running pm2.
 
@@ -52,6 +50,6 @@ This project is a boilerplate setup for building a RESTful API using TypeScript,
    pm2 start ecosystem.config.json
    ```
 
-4. **SWAGGER**
+4. # SWAGGER
 
    For swagger visit http://localhost:4000/api/v1/docs , to create swagger just write swagger docs
