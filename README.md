@@ -6,14 +6,9 @@ This project is a boilerplate setup for building a RESTful API using TypeScript,
 
 ## Table of Contents
 
-- [Project Structure](#project-structure)
 - [Setup and Installation](#setup-and-installation)
-- [Environment Variables](#environment-variables)
-- [Available Scripts](#available-scripts)
-- [API Documentation](#api-documentation)
-- [Folder Structure Breakdown](#folder-structure-breakdown)
-
-## Project Structure
+- [PM2](#pm2)
+- [SWAGGER](#swagger)
 
 ## Setup and Installation
 
@@ -24,13 +19,35 @@ This project is a boilerplate setup for building a RESTful API using TypeScript,
    pnpm install
    pnpm migrate
    ```
+2. **Prepare TS environment**
+
+   # Update packages
+
+   ```bash
+   sudo apt update -y
+   sudo apt upgrade -y
+   ```
+
+   # Install Node.js (this will also install npm)
+
+   ```bash
+   curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+   sudo apt install -y nodejs
+   ```
+
+   # Install TypeScript globally
+
+   ```bash
+   sudo npm install -g typescript
+   tsc -v
+   ```
 
 ## PM2
 
-Make start.sh executable before using pm2
+Make sure to build before running pm2.
 
 ```bash
-chmod +x start.sh
+tsc
 pm2 start ecosystem.config.json
 ```
 
