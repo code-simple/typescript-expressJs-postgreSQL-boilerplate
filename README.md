@@ -1,4 +1,11 @@
-# TypeScript Express PostgreSQL Backend Boilerplate
+![image](https://img.shields.io/badge/TypeScript-000?style=for-the-badge&logo=typescript&logoColor=white&textColor=white)
+![image](https://img.shields.io/badge/Express%20js-efff4b?style=for-the-badge&logo=express&logoColor=black)
+![image](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+![image](https://img.shields.io/badge/Sequelize-1b469c?style=for-the-badge&logo=Sequelize&logoColor=white)
+![image](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=pink)
+![image](https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=Swagger&logoColor=black)
+
+# TypeScript Express PostgreSQL Boilerplate
 
 This project is a boilerplate setup for building a RESTful API using TypeScript, Express.js, and PostgreSQL, utilizing Sequelize as the ORM. It includes essential features such as JWT-based authentication, request validation, rate limiting for specific routes, and project structuring best practices.
 
