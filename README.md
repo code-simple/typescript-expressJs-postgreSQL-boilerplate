@@ -17,6 +17,7 @@ This project is a boilerplate setup for building a RESTful API using TypeScript,
   - [Clone the Repository](#clone-the-repository)
 - [PM2](#pm2)
 - [Swagger](#swagger)
+- [LOGGING](#logging)
 
 1. ## Setup and Installation
 
