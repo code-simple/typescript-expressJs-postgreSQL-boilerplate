@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import sanitizeHtml from "sanitize-html";
 
 // Middleware function for sanitizing all string values in req.body
+// NOTE: Allowing any HTML Tag is not adviced. It can be risky for Server-Side
 const sanitizeRequest = (req: Request, res: Response, next: NextFunction) => {
   if (req.body) {
     for (const key in req.body) {
