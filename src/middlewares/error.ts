@@ -1,4 +1,3 @@
-import logger from "../config/logger";
 import { AppError } from "../utils/AppError";
 import { Request, Response, NextFunction } from "express";
 import { ValidationError, UniqueConstraintError } from "sequelize";
@@ -46,10 +45,6 @@ const globalErrorHandler = (
     message,
     ...(process.env.NODE_ENV === "development" && { stack: err.stack }),
   };
-
-  // if (process.env.NODE_ENV === "development") {
-  //   logger.error(err);
-  // }
 
   res.status(statusCode).send(response);
 };

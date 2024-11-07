@@ -1,6 +1,5 @@
 import express, { Request, Response, NextFunction } from "express";
 import helmet from "helmet";
-import xss from "xss-clean";
 import compression from "compression";
 import cors from "cors";
 import { ReasonPhrases, StatusCodes } from "http-status-codes";
@@ -14,6 +13,7 @@ import { jwtStrategy } from "./config/passport";
 import { errorConverter, globalErrorHandler } from "./middlewares/error";
 import { errorHandler, successHandler } from "./config/morgan";
 import logger from "./config/logger";
+import sanitizeRequest from "./middlewares/sanitize-html";
 
 dotenv.config();
 
@@ -38,7 +38,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Sanitize request data
-app.use(xss());
+app.use(sanitizeRequest);
 
 // Gzip compression
 app.use(compression());

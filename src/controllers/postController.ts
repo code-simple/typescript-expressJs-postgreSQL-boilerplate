@@ -14,6 +14,7 @@ const createPost = async (req: Request, res: Response) => {
 
 const getAllPosts = async (req: Request, res: Response) => {
   const posts = await Post.findAll({
+    attributes: { exclude: ["userId"] },
     include: [
       {
         model: User,
@@ -29,4 +30,17 @@ const getAllPosts = async (req: Request, res: Response) => {
   sendSuccessResponse(res, posts);
 };
 
-export { createPost, getAllPosts };
+const deletePost = async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const post = await Post.findByPk(id);
+
+  if (!post)
+    throw new AppError(ReasonPhrases.NOT_FOUND, httpStatusCode.NOT_FOUND);
+
+  await post.destroy();
+
+  sendSuccessResponse(res, "Post deleted successfully");
+};
+
+export { createPost, getAllPosts, deletePost };
