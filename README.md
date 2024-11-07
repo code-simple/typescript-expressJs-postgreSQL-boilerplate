@@ -1,9 +1,9 @@
-![image](https://img.shields.io/badge/TypeScript-000?style=for-the-badge&logo=typescript&logoColor=white&textColor=white)
-![image](https://img.shields.io/badge/Express%20js-efff4b?style=for-the-badge&logo=express&logoColor=black)
-![image](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
-![image](https://img.shields.io/badge/Sequelize-1b469c?style=for-the-badge&logo=Sequelize&logoColor=white)
-![image](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=pink)
-![image](https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=Swagger&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-000?style=plastic&logo=typescript&logoColor=white&labelColor=000&color=000)
+![Express.js](https://img.shields.io/badge/Express.js-efff4b?style=plastic&logo=express&logoColor=black&labelColor=efff4b)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=plastic&logo=postgresql&logoColor=white&labelColor=316192)
+![Sequelize](https://img.shields.io/badge/Sequelize-1b469c?style=plastic&logo=sequelize&logoColor=white&labelColor=1b469c)
+![JWT](https://img.shields.io/badge/JWT-000000?style=plastic&logo=JSON%20web%20tokens&logoColor=pink&labelColor=000000)
+![Swagger](https://img.shields.io/badge/Swagger-85EA2D?style=plastic&logo=swagger&logoColor=black&labelColor=85EA2D)
 
 # TypeScript Express PostgreSQL Boilerplate
 
