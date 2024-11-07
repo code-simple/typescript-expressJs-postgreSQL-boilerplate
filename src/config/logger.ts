@@ -64,7 +64,7 @@ const logger = winston.createLogger({
       stderrLevels: ["error"],
     }),
     new DailyRotateFile({
-      filename: "serverlogs-%DATE%.log",
+      filename: "%DATE%.log",
       dirname: "./logs",
       level: "error",
       datePattern: "DD-MMM-YYYY",

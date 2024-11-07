@@ -34,21 +34,21 @@ This project is a boilerplate setup for building a RESTful API using TypeScript,
    - Nginx
    - SSL
 
-   ## Install TypeScript globally
+   #### Install TypeScript globally
 
    ```bash
    sudo npm install -g typescript
    tsc -v
    ```
 
-2. ## Clone the Repository:
+2. #### Clone the Repository:
    ```bash
    git clone <repository-url>
    cd <repository-folder>
    pnpm install
    pnpm migrate
    ```
-3. ## PM2
+3. #### PM2
 
    Make sure to build before running pm2.
 
@@ -57,6 +57,12 @@ This project is a boilerplate setup for building a RESTful API using TypeScript,
    pm2 start ecosystem.config.json
    ```
 
-4. ## SWAGGER
+4. #### SWAGGER
 
    For swagger visit http://localhost:4000/api/v1/docs , to create swagger just write swagger docs
+
+5. #### LOGGING
+
+   - Enhanced Logging using Morgan & Winston
+   - Retaining logs of errors in /logs directory for 14 days or 100MB. [Can be adjusted]
+   - Logs are created per each day , e.g `07-Nov-2024.log` makes it easier to track.
