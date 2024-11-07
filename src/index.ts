@@ -4,18 +4,16 @@ import xss from "xss-clean";
 import compression from "compression";
 import cors from "cors";
 import { ReasonPhrases, StatusCodes } from "http-status-codes";
-// import config from "./config/config";
-// import morgan from "./config/morgan";
 import { authLimiter } from "./middlewares/rateLimiter";
 import router from "./routes/v1";
 import { AppError } from "./utils/AppError";
-import globalErrorHandler from "./controllers/errorController";
 import dotenv from "dotenv";
-import { errorHandler, successHandler } from "./config/morgan";
 import checkDatabaseConnection from "./services/databaseService";
 import passport from "passport";
 import { jwtStrategy } from "./config/passport";
-import { ENV } from "./config/config";
+import { errorConverter, globalErrorHandler } from "./middlewares/error";
+import { errorHandler, successHandler } from "./config/morgan";
+import logger from "./config/logger";
 
 dotenv.config();
 
@@ -41,7 +39,6 @@ app.use(express.urlencoded({ extended: true }));
 
 // Sanitize request data
 app.use(xss());
-// app.use(mongoSanitize());
 
 // Gzip compression
 app.use(compression());
@@ -58,24 +55,27 @@ if (process.env.NODE_ENV === "production") {
 // V1 API routes
 app.use("/api/v1", router);
 
+app.get("/api/v1/health", (_, res: Response) => {
+  res.json({
+    message: "👋 Greetings  Health: 🔋 💻 😎 ⌚️",
+  });
+});
 // Send back a 404 error for any unknown API request
 app.use((req: Request, res: Response, next: NextFunction) => {
   next(new AppError(ReasonPhrases.NOT_FOUND, StatusCodes.NOT_FOUND));
 });
 
-// Convert error to ApiError, if needed
-// app.use(errorConverter);
-
-// Handle error
+app.use(errorConverter);
 app.use(globalErrorHandler);
+
 const PORT = process.env.APP_PORT;
 
 const server = app.listen(PORT, () => {
-  console.log("Server up and running", PORT);
+  logger.info(`Server up and running on port ${PORT}`);
 });
-// Call the function to check the DB connection
+
 checkDatabaseConnection(server, () => {
-  console.log(
+  logger.info(
     "Database connection established successfully. Server is ready to handle requests."
   );
 });
