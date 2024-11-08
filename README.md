@@ -67,3 +67,7 @@ This project is a boilerplate setup for building a RESTful API using TypeScript,
    - Enhanced Logging using Morgan & Winston
    - Retaining logs of errors in /logs directory for 14 days or 100MB. [Can be adjusted]
    - Logs are created per each day , e.g `07-Nov-2024.log` makes it easier to track.
+
+6. #### LINTING
+   - Linting: with ESLint
+   - Git hooks: with husky and lint-staged
