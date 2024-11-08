@@ -11,13 +11,15 @@ import { message } from "../utils/message";
 import * as userService from "./user-service";
 import * as tokenService from "./token-service";
 import logger from "../config/logger";
+import { loginSchema, registerSchema } from "../validators/user-validator";
 
 async function login(req: Request) {
-  const { email, password } = req.body;
+  const { error, value } = loginSchema.validate(req.body);
 
-  if (!email || !password) {
-    throw new AppError("Please provide email and password", 400);
+  if (error) {
+    throw new AppError(error.message, httpStatusCode.BAD_REQUEST);
   }
+  const { email, password } = value;
 
   const user = await User.findOne({
     where: { email },
@@ -52,19 +54,17 @@ async function login(req: Request) {
 }
 
 async function signup(req: Request) {
-  const body = req.body;
+  const { value, error } = registerSchema.validate(req.body);
 
-  if (!["1", "2"].includes(body.role)) {
-    throw new AppError("Invalid user role", 400);
+  if (error) {
+    throw new AppError(error.message, httpStatusCode.BAD_REQUEST);
   }
-
-  const newUser = await User.create(req.body);
+  const newUser = await User.create(value);
 
   if (!newUser) {
     throw new AppError("Failed to create the user", 400);
   }
   const result = newUser.toJSON();
-
   const tokens = await tokenService.generateVerifyEmailToken(result);
 
   return { result, tokens };

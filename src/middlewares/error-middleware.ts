@@ -12,16 +12,32 @@ const errorConverter = (
   next: NextFunction
 ): void => {
   let error = err;
+
   if (!(error instanceof AppError)) {
-    const statusCode =
-      error.statusCode ||
-      (error instanceof ValidationError ||
-      error instanceof UniqueConstraintError
-        ? 400
-        : 500);
-    const message = error.message || "An unexpected error occurred";
+    let statusCode = 500;
+    let message = "An unexpected error occurred";
+
+    if (error instanceof ValidationError) {
+      statusCode = 400;
+      message = "Validation error";
+    }
+
+    if (error instanceof UniqueConstraintError) {
+      statusCode = 400;
+      message =
+        "Duplicate entry error: A record with this value already exists";
+
+      // Optionally, you can make the message more specific:
+      if (error.errors && error.errors.length > 0) {
+        const fields = error.errors.map((e) => e.path).join(", ");
+        message = `Duplicate Error: ${fields} already exists in the database`;
+      }
+    }
+
+    // Wrap the error in AppError with customized message and status
     error = new AppError(message, statusCode, false, err.stack);
   }
+
   next(error);
 };
 

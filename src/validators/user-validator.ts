@@ -65,7 +65,25 @@ const resetPasswordSchema = Joi.object({
   }),
 });
 
+const loginSchema = Joi.object({
+  email: Joi.string().email().required(),
+  password: Joi.string().max(12).required(),
+});
+
+const registerSchema = Joi.object({
+  firstName: Joi.string().required(),
+  lastName: Joi.string().required(),
+  role: Joi.string().valid("1", "2").required().messages({
+    "any.only": "Invalid user role",
+  }),
+  email: Joi.string().email().required(),
+  password: Joi.string().max(12).required(),
+  confirmPassword: Joi.string().valid(Joi.ref("password")).required(),
+});
+
 export {
+  registerSchema,
+  loginSchema,
   validateUser,
   emailTokenSchema,
   updateUserSchema,
