@@ -28,7 +28,8 @@ const errorConverter = (
 const globalErrorHandler = (
   err: AppError,
   req: Request,
-  res: Response
+  res: Response,
+  _next: NextFunction
 ): void => {
   let { statusCode = 500, message = "An unexpected error occurred" } = err;
 
