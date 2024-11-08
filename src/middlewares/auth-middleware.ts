@@ -4,7 +4,13 @@ import passport from "passport";
 import httpStatus from "http-status-codes";
 import { AppError } from "../utils/AppError";
 import { roleRights } from "../config/roles";
-import { Request, Response, NextFunction, CookieOptions } from "express";
+import {
+  Request,
+  Response,
+  NextFunction,
+  CookieOptions,
+  ErrorRequestHandler,
+} from "express";
 import { messages } from "../utils/constants";
 
 const verifyCallback =
