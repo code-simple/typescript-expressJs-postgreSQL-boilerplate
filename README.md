@@ -60,7 +60,8 @@ This project is a boilerplate setup for building a RESTful API using TypeScript,
 
 4. #### SWAGGER
 
-   For swagger visit http://localhost:4000/api/v1/docs , to create swagger just write swagger docs
+   For swagger visit /api/v1/docs , to create swagger just write swagger docs.
+   Its set to check for JsDocs inside /routes/\* , So any route having JsDocs will be added to swagger
 
 5. #### LOGGING
 
