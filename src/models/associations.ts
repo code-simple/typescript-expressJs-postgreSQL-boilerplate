@@ -1,5 +1,5 @@
-import Post from "./Posts";
-import User from "./User";
+import Post from "./post-model";
+import User from "./user-model";
 
 const associateModels = async () => {
   //-----------------------USER | POST------------------------------

@@ -1,7 +1,6 @@
-import { DataTypes, Model, Optional } from "sequelize";
+import { DataTypes, Model } from "sequelize";
 import sequelize from "../config/database";
-import User from "./User";
-import { PostAttributes } from "../interfaces/Post";
+import { PostAttributes } from "../interfaces/post-interface";
 
 const Post = sequelize.define<Model<PostAttributes>>(
   "Post",

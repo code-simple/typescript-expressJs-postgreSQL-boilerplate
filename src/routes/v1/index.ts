@@ -1,9 +1,9 @@
 import express, { Router } from "express";
 import authRoute from "./authRoute";
-import userRoute from "./userRoute";
-import postRoute from "./postRoute";
-import docsRoute from "./docsRoute";
-import s3Route from "./s3Route";
+import userRoute from "./user-route";
+import postRoute from "./post-route";
+import docsRoute from "./docs-route";
+import s3Route from "./s3-route";
 
 const router: Router = express.Router();
 

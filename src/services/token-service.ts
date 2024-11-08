@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import dayjs from "dayjs";
-import * as userService from "./userService";
+import * as userService from "./user-service";
 import { AppError } from "../utils/AppError";
 
 import { getUniqueOneTimePassword } from "../utils/helper";
@@ -8,8 +8,8 @@ import { tokenTypes } from "../types/token";
 import httpStatus, { ReasonPhrases } from "http-status-codes";
 import { message } from "../utils/message";
 import { ENV } from "../config/config";
-import Token from "../models/Token";
-import { UserAttributes } from "../interfaces/User";
+import Token from "../models/token-model";
+import { UserAttributes } from "../interfaces/user-interface";
 
 interface AuthTokens {
   access: {
@@ -195,7 +195,7 @@ const refreshTokenService = async (refreshToken: string) => {
     // Get the user associated with the token
 
     const userId = refreshTokenDoc.get("userId") as number;
-    let user = await userService.getUserById(userId);
+    const user = await userService.getUserById(userId);
 
     // If no user is found, throw an error
     if (!user) {
@@ -208,7 +208,7 @@ const refreshTokenService = async (refreshToken: string) => {
     // Generate new authentication tokens
     const tokens = await generateAuthTokens(user.get());
     return { user, tokens };
-  } catch (error) {
+  } catch {
     // Throw an API error if any step fails
     throw new AppError(ReasonPhrases.UNAUTHORIZED, 403);
   }

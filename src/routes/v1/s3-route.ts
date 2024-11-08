@@ -1,8 +1,8 @@
 import express from "express";
-import * as s3Service from "../../services/s3Service";
-import * as s3Controller from "../../controllers/s3Controller";
+import * as s3Service from "../../services/s3-service";
+import * as s3Controller from "../../controllers/s3-controller";
 import catchAsync from "../../utils/catchAsync";
-import auth from "../../middlewares/auth";
+import auth from "../../middlewares/auth-middleware";
 
 const router = express.Router();
 

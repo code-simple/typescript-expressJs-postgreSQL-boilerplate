@@ -3,17 +3,20 @@ import helmet from "helmet";
 import compression from "compression";
 import cors from "cors";
 import { ReasonPhrases, StatusCodes } from "http-status-codes";
-import { authLimiter } from "./middlewares/rateLimiter";
+import { authLimiter } from "./middlewares/rateLimiter-middleware";
 import router from "./routes/v1";
 import { AppError } from "./utils/AppError";
 import dotenv from "dotenv";
-import checkDatabaseConnection from "./services/databaseService";
+import checkDatabaseConnection from "./services/database-service";
 import passport from "passport";
 import { jwtStrategy } from "./config/passport";
-import { errorConverter, globalErrorHandler } from "./middlewares/error";
+import {
+  errorConverter,
+  globalErrorHandler,
+} from "./middlewares/error-middleware";
 import { errorHandler, successHandler } from "./config/morgan";
 import logger from "./config/logger";
-import sanitizeRequest from "./middlewares/sanitize-html";
+import sanitizeRequest from "./middlewares/sanitizeHtml-middleware";
 
 dotenv.config();
 

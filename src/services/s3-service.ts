@@ -3,6 +3,7 @@ import multerS3 from "multer-s3";
 import { S3Client } from "@aws-sdk/client-s3";
 import { Request } from "express";
 import { ENV } from "../config/config"; // Ensure this points to your config
+import logger from "../config/logger";
 
 // Initialize S3 client
 const s3 = new S3Client({
@@ -35,7 +36,7 @@ const storage = multerS3({
   ) => {
     // Create a unique key for the file in the S3 bucket
     const fileKey = `${Date.now().toString()}-${file.originalname}`;
-    console.log(fileKey);
+    logger.info(fileKey);
     cb(null, fileKey); // Pass the key to the callback
   },
 });

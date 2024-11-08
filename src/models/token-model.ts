@@ -1,8 +1,8 @@
 // src/models/Token.ts
 
-import { DataTypes, Sequelize, Model, Optional } from "sequelize";
+import { DataTypes, Model, Optional } from "sequelize";
 import sequelize from "../config/database";
-import { TokenAttributes } from "../interfaces/Token"; // Import the User model for associations
+import { TokenAttributes } from "../interfaces/token-interface"; // Import the User model for associations
 import { tokenTypes } from "../types/token";
 
 // Define optional attributes for token creation

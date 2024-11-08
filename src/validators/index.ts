@@ -1,1 +1,1 @@
-export { validateUser } from "./validateUser";
+export { validateUser } from "./user-validator";

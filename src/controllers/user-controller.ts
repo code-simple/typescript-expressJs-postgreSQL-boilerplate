@@ -1,10 +1,6 @@
 import { Request, Response } from "express";
-import * as userService from "../services/userService";
+import * as userService from "../services/user-service";
 import { sendSuccessResponse } from "../utils/responses";
-import { AppError } from "../utils/AppError";
-import httpStatusCode, { ReasonPhrases } from "http-status-codes";
-import { message } from "../utils/message";
-import { UserAttributes } from "../interfaces/User";
 
 const getAllUsers = async (_: Request, res: Response) => {
   const users = await userService.getAllUsers();

@@ -2,7 +2,8 @@ import bcrypt from "bcrypt";
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../config/database";
 import { UserCreationAttributes } from "../types/user";
-import { UserAttributes } from "../interfaces/User";
+import { UserAttributes } from "../interfaces/user-interface";
+import logger from "../config/logger";
 
 // Define the User model using the functional approach
 const User = sequelize.define<Model<UserAttributes, UserCreationAttributes>>(
@@ -83,7 +84,7 @@ const User = sequelize.define<Model<UserAttributes, UserCreationAttributes>>(
       // After updating a user, log the action
       afterUpdate: (user) => {
         const email = user.get("email");
-        console.log(`User with email ${email} was updated`);
+        logger.info(`User with email ${email} was updated`);
       },
     },
     timestamps: true, // Automatically manage createdAt and updatedAt

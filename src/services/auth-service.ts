@@ -1,16 +1,16 @@
 import { Request } from "express";
 import { AppError } from "../utils/AppError";
-import User from "../models/User";
+import User from "../models/user-model";
 import bcrypt from "bcrypt";
 import httpStatusCode, { ReasonPhrases } from "http-status-codes";
-import { UserAttributes } from "../interfaces/User";
+import { UserAttributes } from "../interfaces/user-interface";
 import { tokenTypes } from "../types/token";
-import Token from "../models/Token";
+import Token from "../models/token-model";
 import { updateRecordById } from "../utils/dbUtils";
 import { message } from "../utils/message";
-import * as userService from "../services/userService";
-import * as tokenService from "../services/tokenService";
-import { messages } from "../utils/constants";
+import * as userService from "./user-service";
+import * as tokenService from "./token-service";
+import logger from "../config/logger";
 
 async function login(req: Request) {
   const { email, password } = req.body;
@@ -36,7 +36,7 @@ async function login(req: Request) {
       user.get({ plain: true })
     );
     // Send token in email to that user
-    console.log(`Emailed to ${user.get("email")}: `, verifyEmailToken);
+    logger.info(`Emailed to ${user.get("email")}: `, verifyEmailToken);
     throw new AppError(
       message.AUTH.EMAIL_NOT_VERIFIED,
       httpStatusCode.FORBIDDEN
@@ -85,7 +85,7 @@ const verifyEmail = async (
 
     // Update user email status to verified
     await updateRecordById(User, user.id, { isEmailVerified: true });
-  } catch (error) {
+  } catch {
     throw new AppError(ReasonPhrases.UNAUTHORIZED, httpStatusCode.UNAUTHORIZED);
   }
 };
@@ -129,7 +129,7 @@ const resetPassword = async (
         type: tokenTypes.RESET_PASSWORD,
       },
     });
-  } catch (error) {
+  } catch {
     throw new AppError(ReasonPhrases.UNAUTHORIZED, httpStatusCode.UNAUTHORIZED);
   }
 };
@@ -145,7 +145,7 @@ async function logout(userId: number) {
     }
 
     return { message: "Logout successful. All tokens deleted." };
-  } catch (error) {
+  } catch {
     throw new AppError(
       message.TOKEN.NOT_FOUND,
       httpStatusCode.INTERNAL_SERVER_ERROR

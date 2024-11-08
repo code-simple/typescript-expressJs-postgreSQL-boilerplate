@@ -1,9 +1,8 @@
 import { Request, Response } from "express";
-import * as postService from "../services/postService";
+import * as postService from "../services/post-service";
 import { sendSuccessResponse } from "../utils/responses";
-import { getAllRecords } from "../utils/dbUtils";
-import Post from "../models/Posts";
-import User from "../models/User";
+import Post from "../models/post-model";
+import User from "../models/user-model";
 import { AppError } from "../utils/AppError";
 import httpStatusCode, { ReasonPhrases } from "http-status-codes";
 
@@ -35,8 +34,9 @@ const deletePost = async (req: Request, res: Response) => {
 
   const post = await Post.findByPk(id);
 
-  if (!post)
+  if (!post) {
     throw new AppError(ReasonPhrases.NOT_FOUND, httpStatusCode.NOT_FOUND);
+  }
 
   await post.destroy();
 

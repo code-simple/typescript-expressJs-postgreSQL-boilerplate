@@ -1,4 +1,4 @@
-import { UserAttributes } from "../models/User"; // Adjust the path to your UserAttributes interface
+import { UserAttributes } from "../models/user-model"; // Adjust the path to your UserAttributes interface
 
 declare module "express-rate-limit";
 

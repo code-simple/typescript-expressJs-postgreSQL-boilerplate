@@ -1,17 +1,11 @@
 // auth.ts
 
 import passport from "passport";
-import httpStatus, { ReasonPhrases } from "http-status-codes";
+import httpStatus from "http-status-codes";
 import { AppError } from "../utils/AppError";
 import { roleRights } from "../config/roles";
-import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction, CookieOptions } from "express";
 import { messages } from "../utils/constants";
-
-// Interface for User object
-interface User {
-  id: string;
-  role: string;
-}
 
 const verifyCallback =
   (

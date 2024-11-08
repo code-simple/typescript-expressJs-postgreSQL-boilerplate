@@ -1,14 +1,8 @@
 import httpStatusCode, { ReasonPhrases } from "http-status-codes";
-import User from "../models/User";
+import User from "../models/user-model";
 import { AppError } from "../utils/AppError";
-import { Request } from "express";
-import sequelize from "../models";
-import { QueryTypes } from "sequelize";
-import { getQuery } from "./queryService";
-import { UserAttributes } from "../interfaces/User";
-import { getAllRecords } from "../utils/dbUtils";
-import { updateUserSchema } from "../validators/validateUser";
-import Post from "../models/Posts";
+import { updateUserSchema } from "../validators/user-validator";
+import Post from "../models/post-model";
 
 async function getUserById(id: number) {
   const user = await User.findByPk(id, {
@@ -53,9 +47,11 @@ async function removeUser(id: string) {
   return user;
 }
 const updateUserById = async (userId: number, updateBody: object) => {
-  const { value, error } = updateUserSchema.validate(updateBody);
+  const { error } = updateUserSchema.validate(updateBody);
 
-  if (error) throw new AppError(error.details[0].message, 400);
+  if (error) {
+    throw new AppError(error.details[0].message, 400);
+  }
 
   // INFO: Updating passwording using other methods will not hash it in table
   const user = await User.findByPk(userId);

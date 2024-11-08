@@ -2,8 +2,9 @@ import { Request, Response } from "express";
 import httpStatus from "http-status-codes";
 import { ENV } from "../config/config";
 import { DeleteObjectCommand } from "@aws-sdk/client-s3";
-import { s3 } from "../services/s3Service";
+import { s3 } from "../services/s3-service";
 import { message } from "../utils/message";
+import logger from "../config/logger";
 
 // Add Media Function
 const addMedia = async (req: Request, res: Response) => {
@@ -47,7 +48,7 @@ const deleteMedia = async (req: Request, res: Response) => {
     await s3.send(deleteCommand);
     res.status(httpStatus.OK).send(message.S3.DELETED);
   } catch (error) {
-    console.error(error);
+    logger.error(error);
     res.status(httpStatus.INTERNAL_SERVER_ERROR).send(message.S3.DELETE_ERROR);
   }
 };

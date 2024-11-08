@@ -1,6 +1,7 @@
 import sequelize from "../config/database";
 import { Server } from "http";
-import associateModels from "../models/Associations";
+import associateModels from "../models/associations";
+import logger from "../config/logger";
 
 const checkDatabaseConnection = async (
   server: Server,
@@ -22,9 +23,9 @@ const checkDatabaseConnection = async (
 
     // Execute the callback if successful
   } catch (error) {
-    console.error("Unable to connect to the database:", error);
+    logger.error("Unable to connect to the database:", error);
     server.close(() => {
-      console.log("Server closed due to database connection error");
+      logger.error("Server closed due to database connection error");
       process.exit(1); // Exit the process with an error code
     });
   }

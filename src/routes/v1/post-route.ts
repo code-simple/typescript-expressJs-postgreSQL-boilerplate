@@ -1,7 +1,7 @@
 import express from "express";
 import catchAsync from "../../utils/catchAsync";
-import * as postControllers from "../../controllers/postController";
-import auth from "../../middlewares/auth";
+import * as postControllers from "../../controllers/post-controller";
+import auth from "../../middlewares/auth-middleware";
 
 const router = express.Router();
 

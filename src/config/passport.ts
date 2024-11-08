@@ -3,10 +3,10 @@ import {
   ExtractJwt,
   StrategyOptions,
 } from "passport-jwt";
-import User from "../models/User";
-import Token from "../models/Token"; // Import the Token model
+import User from "../models/user-model";
+import Token from "../models/token-model"; // Import the Token model
 import { ENV } from "./config";
-import { Payload } from "../interfaces/Token";
+import { Payload } from "../interfaces/token-interface";
 
 // JWT strategy options
 const jwtOptions: StrategyOptions = {
