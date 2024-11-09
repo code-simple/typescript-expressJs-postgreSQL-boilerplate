@@ -5,7 +5,7 @@ import cors from "cors";
 import { ReasonPhrases, StatusCodes } from "http-status-codes";
 import { authLimiter } from "./middlewares/rateLimiter-middleware";
 import router from "./routes/v1";
-import { AppError } from "./utils/AppError";
+import { AppError } from "./utils/app-error";
 import dotenv from "dotenv";
 import checkDatabaseConnection from "./services/database-service";
 import passport from "passport";

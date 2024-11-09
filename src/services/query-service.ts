@@ -1,6 +1,6 @@
 import { QueryTypes } from "sequelize";
 import sequelize from "../models";
-import { AppError } from "../utils/AppError";
+import { AppError } from "../utils/app-error";
 import httpStatus, { ReasonPhrases } from "http-status-codes";
 
 export async function getQuery(query: string) {

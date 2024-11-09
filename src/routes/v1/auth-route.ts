@@ -1,6 +1,6 @@
 import express from "express";
 import * as authController from "../../controllers/auth-controller";
-import catchAsync from "../../utils/catchAsync";
+import catchAsync from "../../utils/catch-async";
 import auth from "../../middlewares/auth-middleware";
 import { validateUser } from "../../validators";
 

@@ -83,7 +83,7 @@ const User = sequelize.define<Model<UserAttributes, UserCreationAttributes>>(
 
       // After updating a user, log the action
       afterUpdate: (user) => {
-        const email = user.get("email");
+        const { email } = user.get();
         logger.info(`User with email ${email} was updated`);
       },
     },

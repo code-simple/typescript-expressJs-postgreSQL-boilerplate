@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { createPostSchema } from "../validators/post-validator";
-import { AppError } from "../utils/AppError";
+import { AppError } from "../utils/app-error";
 import httpStatusCode, { ReasonPhrases } from "http-status-codes";
 import Post from "../models/post-model";
 import { UserAttributes } from "../interfaces/user-interface";

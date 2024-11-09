@@ -1,5 +1,5 @@
 import express, { Router } from "express";
-import authRoute from "./authRoute";
+import authRoute from "./auth-route";
 import userRoute from "./user-route";
 import postRoute from "./post-route";
 import docsRoute from "./docs-route";

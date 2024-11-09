@@ -1,6 +1,6 @@
 import httpStatusCode, { ReasonPhrases } from "http-status-codes";
 import User from "../models/user-model";
-import { AppError } from "../utils/AppError";
+import { AppError } from "../utils/app-error";
 import { updateUserSchema } from "../validators/user-validator";
 import Post from "../models/post-model";
 

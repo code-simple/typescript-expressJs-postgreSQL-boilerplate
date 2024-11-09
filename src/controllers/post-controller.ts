@@ -3,7 +3,7 @@ import * as postService from "../services/post-service";
 import { sendSuccessResponse } from "../utils/responses";
 import Post from "../models/post-model";
 import User from "../models/user-model";
-import { AppError } from "../utils/AppError";
+import { AppError } from "../utils/app-error";
 import httpStatusCode, { ReasonPhrases } from "http-status-codes";
 
 const createPost = async (req: Request, res: Response) => {

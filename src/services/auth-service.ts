@@ -1,12 +1,12 @@
 import { Request } from "express";
-import { AppError } from "../utils/AppError";
+import { AppError } from "../utils/app-error";
 import User from "../models/user-model";
 import bcrypt from "bcrypt";
 import httpStatusCode, { ReasonPhrases } from "http-status-codes";
 import { UserAttributes } from "../interfaces/user-interface";
 import { tokenTypes } from "../types/token";
 import Token from "../models/token-model";
-import { updateRecordById } from "../utils/dbUtils";
+import { updateRecordById } from "../utils/db-utils";
 import { message } from "../utils/message";
 import * as userService from "./user-service";
 import * as tokenService from "./token-service";

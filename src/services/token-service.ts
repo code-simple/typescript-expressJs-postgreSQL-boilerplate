@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import dayjs from "dayjs";
 import * as userService from "./user-service";
-import { AppError } from "../utils/AppError";
+import { AppError } from "../utils/app-error";
 
 import { getUniqueOneTimePassword } from "../utils/helper";
 import { tokenTypes } from "../types/token";

@@ -1,4 +1,4 @@
-import { AppError } from "../utils/AppError";
+import { AppError } from "../utils/app-error";
 import { Request, Response, NextFunction } from "express";
 import { ValidationError, UniqueConstraintError } from "sequelize";
 import dotenv from "dotenv";

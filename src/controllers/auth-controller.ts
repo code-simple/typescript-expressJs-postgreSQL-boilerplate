@@ -3,7 +3,7 @@ import * as tokenService from "../services/token-service";
 import { sendSuccessResponse } from "../utils/responses";
 import * as authService from "../services/auth-service";
 import { getUserByEmail, getUserById } from "../services/user-service";
-import { AppError } from "../utils/AppError";
+import { AppError } from "../utils/app-error";
 import httpStatusCode, { ReasonPhrases } from "http-status-codes";
 import { UserAttributes } from "../interfaces/user-interface";
 import {

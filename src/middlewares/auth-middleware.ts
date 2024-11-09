@@ -2,7 +2,7 @@
 
 import passport from "passport";
 import httpStatus from "http-status-codes";
-import { AppError } from "../utils/AppError";
+import { AppError } from "../utils/app-error";
 import { roleRights } from "../config/roles";
 import { Request, Response, NextFunction } from "express";
 import { messages } from "../utils/constants";

@@ -1,7 +1,7 @@
 import Joi from "joi";
 import { Request, Response, NextFunction } from "express";
-import { AppError } from "../utils/AppError";
-import catchAsync from "../utils/catchAsync";
+import { AppError } from "../utils/app-error";
+import catchAsync from "../utils/catch-async";
 
 // Define Joi schema for user validation
 const userSchema = Joi.object({

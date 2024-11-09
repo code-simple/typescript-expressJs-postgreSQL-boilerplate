@@ -1,5 +1,5 @@
 import express from "express";
-import catchAsync from "../../utils/catchAsync";
+import catchAsync from "../../utils/catch-async";
 import * as postControllers from "../../controllers/post-controller";
 import auth from "../../middlewares/auth-middleware";
 

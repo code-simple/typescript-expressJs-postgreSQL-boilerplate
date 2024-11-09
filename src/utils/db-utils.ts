@@ -5,7 +5,7 @@ import {
   ModelStatic,
   WhereOptions,
 } from "sequelize";
-import { AppError } from "./AppError";
+import { AppError } from "./app-error";
 import {
   ReasonPhrases,
   StatusCodes as httpStatusCode,
