@@ -38,9 +38,9 @@ async function login(req: Request) {
       user.get({ plain: true })
     );
     // Send token in email to that user
-    logger.info(`Emailed to ${user.get("email")}: `, verifyEmailToken);
+    logger.info(`Emailed to ${email} Token: ${verifyEmailToken}`);
     throw new AppError(
-      message.AUTH.EMAIL_NOT_VERIFIED,
+      message.AUTH.EMAIL_NOT_VERIFIED + ` Token: ${verifyEmailToken}`,
       httpStatusCode.FORBIDDEN
     );
   }

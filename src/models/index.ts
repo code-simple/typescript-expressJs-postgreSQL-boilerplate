@@ -1,8 +1,6 @@
 import path from "path";
 import fs from "fs";
 import sequelize from "../config/database"; // Import the configured Sequelize instance
-import associateModels from "./associations";
-import logger from "../config/logger";
 
 // Object to store models by name
 const db: { [key: string]: any } = {};
@@ -25,20 +23,5 @@ fs.readdirSync(__dirname)
     }
   });
 
-// Import and define associations after all models are loaded
-associateModels();
-
-logger.info("Attempting to sync database...");
-
-sequelize
-  .sync({ alter: true })
-  .then(() => {
-    logger.info("Database synced successfully.");
-  })
-  .catch((error) => {
-    logger.info(error);
-  });
-
-// Export the sequelize instance and models
 export { sequelize, db };
 export default sequelize;

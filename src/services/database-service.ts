@@ -14,11 +14,12 @@ const checkDatabaseConnection = async (
 
     // Sync the database to create or update tables based on models
     /**
-     *  INFO: With { alter: true } you dont have to do migrations. But when db become complicated and more tables are added,
-     *  then its not recommended , it also takes out takes out the opiton of Rollbacking migration because you cant migrate anymore
+     *  INFO: With { alter: true } you dont have to do migrations.
+     *  Its pretty handy when there are multiple models added so then you dont have to do migration for each model,
+     *  it also takes out takes out the opiton of Rollbacking migration because you cant migrate anymore
      */
-    // await sequelize.sync({ alter: true });
-    await sequelize.sync();
+    await sequelize.sync({ alter: true });
+    // await sequelize.sync();
     callback();
 
     // Execute the callback if successful
