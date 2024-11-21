@@ -26,14 +26,15 @@ const sendEmail = async (to: string, subject: string, html: string) => {
 
 interface ISendRegistrationCompleted {
   subject: string;
+  validationLink: string;
 }
 
 const sendRegistrationCompleted = async (
   to: string,
   emailObj: ISendRegistrationCompleted
 ) => {
-  const { subject } = emailObj;
-  const obj = { to };
+  const { subject, validationLink } = emailObj;
+  const obj = { to, validationLink };
   ejs.renderFile(
     path.join(__dirname, "..", "templates/email/", "registration-template.ejs"),
     obj,

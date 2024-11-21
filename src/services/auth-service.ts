@@ -13,6 +13,7 @@ import * as tokenService from "./token-service";
 import logger from "../config/logger";
 import { loginSchema, registerSchema } from "../validators/user-validator";
 import { sendRegistrationCompleted } from "../services/email-service";
+import { ENV } from "../config/config";
 
 async function login(req: Request) {
   const { error, value } = loginSchema.validate(req.body);
@@ -67,8 +68,13 @@ async function signup(req: Request) {
   }
   const result = newUser.toJSON();
   const tokens = await tokenService.generateVerifyEmailToken(result);
+
+  const verifyEmailToken = await tokenService.generateVerifyEmailToken(
+    newUser.get({ plain: true })
+  );
   await sendRegistrationCompleted(result.email, {
     subject: "Registration Successful",
+    validationLink: `${ENV.APP.SERVER_HOST_URL}/auth/verifyEmail?email=${result.email}&token=${verifyEmailToken}`,
   });
   return { result, tokens };
 }
