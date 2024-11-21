@@ -52,17 +52,18 @@ passport.use("jwt", jwtStrategy);
 
 // Limit repeated failed requests to auth endpoints
 if (process.env.NODE_ENV === "production") {
-  app.use("/api/v1/auth", authLimiter);
+  app.use("/v1/auth", authLimiter);
 }
 
 // V1 API routes
-app.use("/api/v1", router);
+app.use("/v1", router);
 
-app.get("/api/v1/health", (_, res: Response) => {
+app.get("/v1/health", (_, res: Response) => {
   res.json({
-    message: "👋 Greetings  Health: 🔋 💻 😎 ⌚️",
+    status: "🚀 Server is up & running 🏃‍➡️",
   });
 });
+
 // Send back a 404 error for any unknown API request
 app.use((req: Request, res: Response, next: NextFunction) => {
   next(new AppError(ReasonPhrases.NOT_FOUND, StatusCodes.NOT_FOUND));
@@ -81,6 +82,15 @@ checkDatabaseConnection(server, () => {
   logger.info(
     "Database connection established successfully. Server is ready to handle requests."
   );
+});
+
+process.on("uncaughtException", (error) => {
+  logger.error("Unhandled exception:", error);
+  process.exit(1); // Ensure the process terminates after handling
+});
+
+process.on("unhandledRejection", (reason) => {
+  logger.error("Unhandled rejection:", reason);
 });
 
 export default app;
