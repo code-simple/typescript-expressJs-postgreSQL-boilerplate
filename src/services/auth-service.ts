@@ -12,6 +12,7 @@ import * as userService from "./user-service";
 import * as tokenService from "./token-service";
 import logger from "../config/logger";
 import { loginSchema, registerSchema } from "../validators/user-validator";
+import { sendRegistrationCompleted } from "../services/email-service";
 
 async function login(req: Request) {
   const { error, value } = loginSchema.validate(req.body);
@@ -66,7 +67,9 @@ async function signup(req: Request) {
   }
   const result = newUser.toJSON();
   const tokens = await tokenService.generateVerifyEmailToken(result);
-
+  await sendRegistrationCompleted(result.email, {
+    subject: "Registration Successful",
+  });
   return { result, tokens };
 }
 

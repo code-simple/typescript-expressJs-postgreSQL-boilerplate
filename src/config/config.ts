@@ -33,4 +33,15 @@ export const ENV = {
     REGION: process.env.REGION,
     BUCKET_NAME: process.env.BUCKET_NAME,
   },
+  email: {
+    smtp: {
+      host: process.env.SMTP_HOST as string, // Type assertion
+      port: process.env.SMTP_PORT ? parseInt(process.env.SMTP_PORT, 10) : 587, // Default to 587 if not set
+      auth: {
+        user: process.env.SMTP_USERNAME as string, // Type assertion
+        pass: process.env.SMTP_PASSWORD as string, // Type assertion
+      },
+    },
+    from: process.env.EMAIL_FROM as string, // Type assertion
+  },
 };

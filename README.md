@@ -70,5 +70,11 @@ This project is a boilerplate setup for building a RESTful API using TypeScript,
    - Logs are created per each day , e.g `07-Nov-2024.log` makes it easier to track.
 
 6. #### LINTING
+
    - Linting: with ESLint
    - Git hooks: with husky and lint-staged
+
+7. #### EMAIL SERVICE
+   - Nodemailer configured
+   - EJS a powerful tool to use email templates.
+     Note : use `<%= variable %>` inside template to replace Dynamic fields. E.g you want to greet new regisration just replace dummy email with `<%= email %>` in template

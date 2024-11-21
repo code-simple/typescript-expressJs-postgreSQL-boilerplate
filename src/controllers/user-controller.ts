@@ -4,6 +4,7 @@ import { sendSuccessResponse } from "../utils/responses";
 
 const getAllUsers = async (_: Request, res: Response) => {
   const users = await userService.getAllUsers();
+
   sendSuccessResponse(res, users);
 };
 
