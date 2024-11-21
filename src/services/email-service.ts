@@ -4,8 +4,10 @@ import ejs from "ejs";
 import { ENV } from "../config/config";
 import logger from "../config/logger";
 import path from "path";
+import { Resend } from "resend";
 
 const transport = nodemailer.createTransport(ENV.email.smtp);
+const resend = new Resend(ENV.email.resendApi);
 
 if (ENV.APP.ENV !== "test") {
   transport
@@ -44,7 +46,13 @@ const sendRegistrationCompleted = async (
       }
       const msg = { from: `TSP ${ENV.email.from}`, to, subject, html: data };
 
+      // Send over SMTP
       await transport.sendMail(msg);
+
+      // Send via Resend
+      // await resend.emails.send(msg);
+
+      logger.info(`Email sent to ${to} with subject: ${subject}`);
     }
   );
 };

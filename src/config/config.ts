@@ -43,5 +43,6 @@ export const ENV = {
       },
     },
     from: process.env.EMAIL_FROM as string, // Type assertion
+    resendApi: process.env.RESEND_API_KEY,
   },
 };

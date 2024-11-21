@@ -54,6 +54,7 @@
     "passport-jwt": "^4.0.1",
     "pg": "^8.13.1",
     "pg-hstore": "^2.3.4",
+    "resend": "^4.0.1",
     "sanitize-html": "^2.13.1",
     "sequelize": "^6.37.4",
     "sequelize-typescript": "^2.1.6",

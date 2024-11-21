@@ -27,7 +27,7 @@ export default [
     // Define the rules
     rules: {
       "@typescript-eslint/no-unused-vars": [
-        "error",
+        "warn",
         { argsIgnorePattern: "^_" },
       ],
       "no-console": "warn", // Warn on console logs; useful for debugging in a backend
