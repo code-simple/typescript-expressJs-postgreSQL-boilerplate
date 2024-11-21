@@ -84,6 +84,7 @@ checkDatabaseConnection(server, () => {
   );
 });
 
+// Handle uncaught exceptions and rejections to ensure the server terminates gracefully
 process.on("uncaughtException", (error) => {
   logger.error("Unhandled exception:", error);
   process.exit(1); // Ensure the process terminates after handling
