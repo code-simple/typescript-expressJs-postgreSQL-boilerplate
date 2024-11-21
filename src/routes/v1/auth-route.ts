@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.post("/signup", validateUser, catchAsync(authController.signup));
 router.post("/login", catchAsync(authController.login));
-router.post("/verifyEmail", catchAsync(authController.verifyEmail));
+router.get("/verifyEmail", catchAsync(authController.verifyEmail));
 router.post("/refreshToken", catchAsync(authController.refreshToken));
 router.post("/forgotPassword", catchAsync(authController.forgotPassword));
 router.post("/resetPassword", catchAsync(authController.resetPassword));
