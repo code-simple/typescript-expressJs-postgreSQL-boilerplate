@@ -1,4 +1,5 @@
-![TypeScript](https://img.shields.io/badge/TypeScript-000?style=plastic&logo=typescript&logoColor=white&labelColor=000&color=000)
+# New Document![TypeScript](https://img.shields.io/badge/TypeScript-000?style=plastic&logo=typescript&logoColor=white&labelColor=000&color=000)
+
 ![Express.js](https://img.shields.io/badge/Express.js-efff4b?style=plastic&logo=express&logoColor=black&labelColor=efff4b)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=plastic&logo=postgresql&logoColor=white&labelColor=316192)
 ![Sequelize](https://img.shields.io/badge/Sequelize-1b469c?style=plastic&logo=sequelize&logoColor=white&labelColor=1b469c)
@@ -75,6 +76,29 @@ This project is a boilerplate setup for building a RESTful API using TypeScript,
    - Git hooks: with husky and lint-staged
 
 7. #### EMAIL SERVICE
+
    - Nodemailer configured
    - EJS a powerful tool to use email templates.
      Note : use `<%= variable %>` inside template to replace Dynamic fields. E.g you want to greet new regisration just replace dummy email with `<%= email %>` in template
+
+8. #### FILE UPLOADS TO AMAZON S3
+
+   - Users can upload various file types (images, videos, or documents) to **Amazon S3** for secure and scalable storage.
+   - The app ensures high availability, reliability, and cost-effective storage solutions for all uploaded files.
+
+9. #### API VERSIONING
+
+   - The API supports **versioning** to maintain backward compatibility across releases.
+   - Currently, the API uses the `/v1` prefix for version 1 of the routes (e.g., `/v1/users`, `/v1/auth/login`).
+   - Versioning ensures smooth updates without breaking existing functionality for users on older API versions.
+
+10. #### PRECISE ERROR HANDLING
+
+    - The app has a **global error handler** that handles both operational and uncaught errors.
+    - **Operational Errors**: User-related issues (e.g., bad input, unauthorized access) are handled with clear error messages and appropriate HTTP status codes.
+    - **Uncaught Errors**: Unhandled exceptions and rejections are caught to prevent the app from crashing. Errors are returned in a structured format for easy debugging.
+
+11. #### ROLE-BASED ACCESS CONTROL (RBAC)
+
+- **RBAC** is implemented to manage permissions based on user roles (e.g., **admin**, **user**, **moderator**).
+- Each route and resource is protected based on the user's assigned role, ensuring secure access control to sensitive actions and data.
