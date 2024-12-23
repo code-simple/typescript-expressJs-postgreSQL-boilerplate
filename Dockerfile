@@ -1,23 +1,29 @@
-# Use the official Node.js image
-FROM node:16-alpine
+# Use the official Node.js image as the base
+FROM node:18-alpine
 
-# Set the working directory
-WORKDIR /app
+# Set the working directory inside the container
+WORKDIR /usr/src/app
 
-# Copy the package.json and package-lock.json to install dependencies
-COPY package*.json ./
+# Copy package.json and package-lock.json to the working directory
+COPY package.json package-lock.json ./
 
-# Install dependencies
-RUN npm install
-
-# Copy the rest of your project files
+# Copy the rest of the application files
 COPY . .
 
-# Transpile TypeScript to JavaScript
+# Install typescript globally
+RUN npm install -g typescript
+
+# Install dependencies (including dev dependencies)
+RUN npm install 
+
+# Build the TypeScript code
 RUN npm run build
 
-# Start the server
-CMD ["npm", "start"]
+# Install pm2 globally
+RUN npm install -g pm2
 
 # Expose the port your app runs on
 EXPOSE 4000
+
+# Start the application using pm2
+CMD ["pm2-runtime", "ecosystem.config.json"]
