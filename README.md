@@ -1,5 +1,4 @@
-# New Document![TypeScript](https://img.shields.io/badge/TypeScript-000?style=plastic&logo=typescript&logoColor=white&labelColor=000&color=000)
-
+![TypeScript](https://img.shields.io/badge/TypeScript-000?style=plastic&logo=typescript&logoColor=white&labelColor=000&color=000)
 ![Express.js](https://img.shields.io/badge/Express.js-efff4b?style=plastic&logo=express&logoColor=black&labelColor=efff4b)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=plastic&logo=postgresql&logoColor=white&labelColor=316192)
 ![Sequelize](https://img.shields.io/badge/Sequelize-1b469c?style=plastic&logo=sequelize&logoColor=white&labelColor=1b469c)
