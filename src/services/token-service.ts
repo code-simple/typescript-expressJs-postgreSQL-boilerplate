@@ -39,7 +39,7 @@ const generateToken = (
 ): string => {
   const payload = {
     sub: user.id,
-    // email: user.email || "",
+    email: user.email || "",
     fullName: user.firstName + " " + user.lastName || "",
     role: user.role || "",
     iat: dayjs().unix(),

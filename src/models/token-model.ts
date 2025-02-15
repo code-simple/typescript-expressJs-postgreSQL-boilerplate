@@ -19,7 +19,7 @@ const Token = sequelize.define<Model<TokenAttributes, TokenCreationAttributes>>(
       type: DataTypes.INTEGER,
     },
     token: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(512),
       allowNull: false,
       unique: true,
     },
