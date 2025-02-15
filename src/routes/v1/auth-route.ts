@@ -6,7 +6,7 @@ import { validateUser } from "../../validators";
 
 const router = express.Router();
 
-router.post("/signup", validateUser, catchAsync(authController.signup));
+router.post("/signup", catchAsync(authController.signup));
 router.post("/login", catchAsync(authController.login));
 router.get("/verifyEmail", catchAsync(authController.verifyEmail));
 router.post("/refreshToken", catchAsync(authController.refreshToken));

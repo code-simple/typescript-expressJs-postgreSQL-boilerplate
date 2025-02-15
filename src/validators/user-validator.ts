@@ -2,13 +2,16 @@ import Joi from "joi";
 import { Request, Response, NextFunction } from "express";
 import { AppError } from "../utils/app-error";
 import catchAsync from "../utils/catch-async";
+import { roles } from "../config/roles";
 
 // Define Joi schema for user validation
 const userSchema = Joi.object({
   role: Joi.string()
-    .valid("0", "1", "2")
+    .valid(...roles.filter((role) => role !== "admin")) // Remove 'admin' from the roles array
     .required()
-    .messages({ "any.only": "User type must be 0, 1, or 2" }),
+    .messages({
+      "any.only": "Invalid user role",
+    }),
   firstName: Joi.string()
     .required()
     .messages({ "string.empty": "First name is required" }),
@@ -30,7 +33,7 @@ const userSchema = Joi.object({
   token: Joi.string().optional().allow(null),
 });
 
-// Middleware to validate user data
+// Middleware that can be used if needed.
 const validateUser = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { error } = userSchema.validate(req.body);
@@ -73,11 +76,14 @@ const loginSchema = Joi.object({
 const registerSchema = Joi.object({
   firstName: Joi.string().required(),
   lastName: Joi.string().required(),
-  role: Joi.string().valid("1", "2").required().messages({
-    "any.only": "Invalid user role",
-  }),
+  role: Joi.string()
+    .valid(...roles.filter((role) => role !== "admin")) // Remove 'admin' from the roles array
+    .required()
+    .messages({
+      "any.only": "Invalid user role",
+    }),
   email: Joi.string().email().required(),
-  password: Joi.string().max(12).required(),
+  password: Joi.string().min(11).required(),
   confirmPassword: Joi.string().valid(Joi.ref("password")).required(),
 });
 

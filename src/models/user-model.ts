@@ -4,6 +4,7 @@ import sequelize from "../config/database";
 import { UserCreationAttributes } from "../types/user";
 import { UserAttributes } from "../interfaces/user-interface";
 import logger from "../config/logger";
+import { roles } from "../config/roles";
 
 // Define the User model using the functional approach
 const User = sequelize.define<Model<UserAttributes, UserCreationAttributes>>(
@@ -16,7 +17,7 @@ const User = sequelize.define<Model<UserAttributes, UserCreationAttributes>>(
       type: DataTypes.INTEGER,
     },
     role: {
-      type: DataTypes.ENUM("0", "1", "2"), // 0: admin, 1: user, 2: other
+      type: DataTypes.ENUM(...roles), // 0: admin, 1: user, 2: other
       allowNull: false,
     },
     firstName: {
