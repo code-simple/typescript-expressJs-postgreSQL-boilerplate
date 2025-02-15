@@ -16,6 +16,11 @@ router.delete(
   catchAsync(userController.removeUser)
 );
 router.patch(
+  "/updateCurrentUser",
+  auth("manageUsers"),
+  catchAsync(userController.updateCurrentUser)
+);
+router.patch(
   "/:id",
   auth("manageUsers"),
   catchAsync(userController.updateUser)
