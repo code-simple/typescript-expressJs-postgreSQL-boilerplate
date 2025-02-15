@@ -101,3 +101,20 @@ This project is a boilerplate setup for building a RESTful API using TypeScript,
 
 - **RBAC** is implemented to manage permissions based on user roles (e.g., **admin**, **user**, **moderator**).
 - Each route and resource is protected based on the user's assigned role, ensuring secure access control to sensitive actions and data.
+
+12. #### Association using Sequelize ORM
+
+- In Token Model there is association done between Token and User model
+
+```
+userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "User",
+        key: "id",
+      },
+      onDelete: "CASCADE",
+    },
+
+```
