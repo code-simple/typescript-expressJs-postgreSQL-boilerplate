@@ -79,9 +79,9 @@ This project is a boilerplate setup for building a RESTful API using TypeScript,
 
 10. #### PRECISE ERROR HANDLING
 
-    - The app has a **global error handler** that handles both operational and uncaught errors.
-    - **Operational Errors**: User-related issues (e.g., bad input, unauthorized access) are handled with clear error messages and appropriate HTTP status codes.
-    - **Uncaught Errors**: Unhandled exceptions and rejections are caught to prevent the app from crashing. Errors are returned in a structured format for easy debugging.
+- The app has a **global error handler** that handles both operational and uncaught errors.
+- **Operational Errors**: User-related issues (e.g., bad input, unauthorized access) are handled with clear error messages and appropriate HTTP status codes.
+- **Uncaught Errors**: Unhandled exceptions and rejections are caught to prevent the app from crashing. Errors are returned in a structured format for easy debugging.
 
 11. #### ROLE-BASED ACCESS CONTROL (RBAC)
 
@@ -109,4 +109,4 @@ userId: {
 
 - Switch to MySql by just editing database.js sequelize config, change dialect : 'mysql'.
 
-  Note : You must change Model fields as some fields may not work proper after shifting to mysql.
+Note : You must change Model fields as some fields may not work proper after shifting to mysql.
