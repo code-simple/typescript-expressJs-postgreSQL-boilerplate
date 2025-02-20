@@ -9,23 +9,9 @@
 
 This project is a boilerplate setup for building a RESTful API using TypeScript, Express.js, and PostgreSQL, utilizing Sequelize as the ORM. It includes essential features such as JWT-based authentication, request validation, rate limiting for specific routes, and project structuring best practices.
 
-## Table of Contents
-
-- [Setup and Installation](#setup-and-installation)
-  - [Setup for EC2](#setup-for-ec2)
-  - [Install TypeScript globally](#install-typescript-globally)
-  - [Clone the Repository](#clone-the-repository)
-- [PM2](#pm2)
-- [Swagger](#swagger)
-- [LOGGING](#logging)
-
 1. ## Setup and Installation
 
-   ### Setup for EC2
-
-   [Prepare EC2](https://github.com/code-simple/nodejs-on-ec2)
-
-   This will cover all of the following:
+   [Prepare EC2](https://github.com/code-simple/nodejs-on-ec2) - This will cover all of the following:
 
    - Node.js
    - npm
@@ -118,3 +104,9 @@ userId: {
     },
 
 ```
+
+13. ### Switch Between PostgreSQL and MySQL :
+
+- Switch to MySql by just editing database.js sequelize config, change dialect : 'mysql'.
+
+  Note : You must change Model fields as some fields may not work proper after shifting to mysql.
